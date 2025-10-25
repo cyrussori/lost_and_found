@@ -1,8 +1,8 @@
-import "../css/main.css"
+import "../css/login.css";
 export default function Login() {
   return (
     <>
-    <div className="randClassName">HELLO</div>
+      <div className="randClassName">test</div>
     </>
   );
 }

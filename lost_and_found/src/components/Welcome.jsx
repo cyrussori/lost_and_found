@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "../css/main.css"
 function CardPost({text}) {
   return (
@@ -64,7 +65,7 @@ export default function Welcome() {
       <div className="linkBar">
         <button className="btnStyle"> Lost </button>
         <button className="btnStyle"> Found </button>
-        <a href="../pages/Login.jsx">Login</a>
+        <Link to="/login">Login</Link>
       </div>
     
     </div>
