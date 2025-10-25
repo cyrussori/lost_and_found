@@ -64,7 +64,7 @@ export default function Welcome() {
       <div className="linkBar">
         <button className="btnStyle"> Lost </button>
         <button className="btnStyle"> Found </button>
-        <button className="btnStyle"> Login </button>
+        <a href="../pages/Login.jsx">Login</a>
       </div>
     
     </div>
