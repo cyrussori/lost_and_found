@@ -3,6 +3,7 @@ export default function Signup() {
   return (
     <>
       {/*Header*/}
+      <div className="loginWrapper">
       <div className="loginCard">
         <h1>Lost & Found</h1>
         <p>Sign up to continue</p>
@@ -15,6 +16,7 @@ export default function Signup() {
           <input type="password" id="password" name="password" placeholder="Enter your password"></input>
           <input className="loginSubmit" type="submit" value="Continue"></input>
         </form>
+      </div>
       </div>
     </>
   );

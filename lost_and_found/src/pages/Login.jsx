@@ -4,6 +4,7 @@ export default function Login() {
   return (
     <>
       {/*Header*/}
+      <div className="loginWrapper">
       <div className="loginCard">
         <h1>Lost & Found</h1>
         <form className="loginForm" action="">
@@ -15,6 +16,8 @@ export default function Login() {
         </form>
         <Link className="signupLink" to="/signup">Create an account</Link>
       </div>
+      </div>
+
     </>
   );
 }
