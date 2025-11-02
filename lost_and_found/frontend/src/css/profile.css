@@ -1,0 +1,103 @@
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headerWrapper > h4 {
+    color: white;
+}
+
+.profileWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  width: 640px;
+  height: calc(100vh);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.contactInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tempForImage {
+    background-color: gray;
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    border-radius: 50px;
+    margin-top: 40px;
+}
+
+.rightContactInfo {
+    margin-left: 15px;
+    margin-top: 40px;
+}
+
+.rightContactInfo > h2 {
+    margin-bottom: 10px;
+}
+
+.rightContactInfo > p {
+    margin-top: 0px;
+}
+
+.editProfileBtn {
+    background-color: var(--dark-blue);
+    border: 0px;
+    color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    height: 30px;
+    width: 600px;
+}
+
+.lowerCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.colWrapper {
+    margin-top: 10px;
+    border-top: 1px solid var(--dark-blue);
+    border-bottom: 1px solid var(--dark-blue);
+    padding: 0 16px;
+    width: 550px;
+}
+
+.colBtns {
+    display: flex;
+    gap: 24px;
+    height: 48px;
+    align-items: flex-end;
+    font-size: 16px;
+    font-weight: 500;
+    justify-content: space-between;
+}
+
+.colBtns > button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: black;
+    height: 100%;
+    cursor: pointer;
+    font: inherit;
+    outline: none;
+    align-items: center;
+}
+

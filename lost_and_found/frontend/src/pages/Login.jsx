@@ -15,6 +15,7 @@ export default function Login() {
           <input className="loginSubmit" type="submit" value="Continue"></input>
         </form>
         <Link className="signupLink" to="/signup">Create an account</Link>
+        <Link className="signupLink" to="/profile">Temp link</Link>
       </div>
       </div>
 
