@@ -1,5 +1,7 @@
 // This file is a connection between node.js server and MYSQL database
-import mysql from "mysql2"
+import mysql from "mysql2";
+import dotenv from "dotenv";
+dotenv.config();
 
 //create a connection to the database we created in MYSQL
 const db = mysql.createConnection({
