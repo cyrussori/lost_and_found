@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS lostfound_db;
+
+USE lostfound_db;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
+  password VARCHAR(255)
+);
