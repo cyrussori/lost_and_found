@@ -1,5 +1,10 @@
 import "../css/profile.css";
 import { Link } from "react-router-dom";
+
+// TODO:  
+// - User => set to fullname, email => set to email
+//          * Bring info from login on navigation
+// - Way to navigate to main page. 
 export default function Login() {
   return (
     <>
