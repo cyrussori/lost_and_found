@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { signup } from '../services/api.js';
+
 export default function Signup() {
+  const [signupData, setSignupData] = useState({});
   return (
     <>
       {/*Header*/}
