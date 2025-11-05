@@ -1,5 +1,5 @@
 export const API_BASE = 'http://localhost:5050/api'
-
+// TODO, remove try catch => bubble to Signup.jsx/Login.jsx
 export async function login({ email, password }) {
     try {
         // define response
