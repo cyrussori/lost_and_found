@@ -54,3 +54,14 @@ input {
   text-decoration: underline;
 }
 
+.errorMessage {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 5px;
+  border: 1px solid #ef9a9a;
+  text-align: center;
+  font-size: 12px;
+  width: 275px
+}

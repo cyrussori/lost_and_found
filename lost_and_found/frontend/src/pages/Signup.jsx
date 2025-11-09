@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function Signup() {
   const [signupData, setSignupData] = useState({ "name": "", "email": "", "password": "" });
   const [err, setErr] = useState(null); // TODO: Catch error thrown from api.js
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(false); 
   const nav = useNavigate();
 
   const onChange = e => {
@@ -16,32 +16,46 @@ export default function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault(); // prevents refresh
-    setErr("");
+    setErr(null);
     setLoading(true);
+    if (!signup.name) {
+      setErr('Name is required');
+      setLoading(false);
+      return;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(signupData.email)) {
+      setErr('Email is invalid. Please enter a valid email.')
+      setLoading(false);
+      return;
+    }
+    if (signupData.password.length < 6) {
+      setErr('Password must be at least 6 characters long');
+      setLoading(false);
+      return;
+    }
     try {
-      /* TODO
-      if (signupData.password.length() < n) { // PW at least n chars long
-        // Return div "PW at least n chars long"
-      }
-      */
       const userData = await signup(signupData);
       console.log(userData);
       // Use localStorage for now; Stores signup data. 
       // After, everything works => use cookies. 
+      if (!userData) {
+        //assume email already taken
+        setErr('Email already in use. Try logging in.');
+      }
       const validUserData = () => {
-        return userData.token && userData.user?.id && userData.userId;
+        return userData.token && (userData.user?.id || userData.userId);
       }
       if (validUserData) {
         localStorage.setItem('token', userData.token);
         localStorage.setItem('user', userData.user?.id);
         localStorage.setItem('user', userData.userId);
       } else {
-        throw new Error(`Data error`);
+        throw new Error('Invalid response from server');
       }
-      // Go to login
       nav("/login");
     } catch(error) {
       console.error("Erroneous data: ", error)
+      setErr('Signup failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -61,6 +75,9 @@ export default function Signup() {
           <input type="text" id="name" name="name" placeholder="Enter full name" onChange={onChange}></input>
           <label for="password">Password</label>
           <input type="password" id="password" name="password" placeholder="Enter your password" onChange={onChange}></input>
+          {err && (
+            <div className="errorMessage">{err}</div>
+          )}
           <input className="loginSubmit" type="submit" value="Continue"></input>
         </form>
       </div>
