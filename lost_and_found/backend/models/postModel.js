@@ -1,6 +1,6 @@
 //Helper functions that interact with mysql database
 
-import db from "../db/connection/js"
+import db from "../db/connection.js"
 
 export const createPost = (user_id, post_type, title, description, category, address, contact, image, callback) => {
   const sql = `

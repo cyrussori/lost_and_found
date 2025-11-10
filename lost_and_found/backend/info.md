@@ -11,7 +11,67 @@ DB_NAME=lostfound_db
 cd backend and run: mysql -u root -p < ./db/schema.sql
 
 
-# HOW TO TEST (with postman):
+# HOW TO INTEGRATE WITH FRONTEND
+# User account
+## 1. Sign up
+On submit:
+	•	Send a POST request to http://localhost:5050/api/auth/signup
+    •   Body JSON example:
+        {
+            "name": "David",
+            "email": "davidBigberg@gmail.com",
+            "password": "123456"
+        }
+## 2. Log in
+On submit:
+	•	Send a POST request to http://localhost:5050/api/auth/login
+    •   Body JSON example:
+        {
+            "email": "davidBigberg@example.com",
+            "password": "123456"
+        }
+# Posts
+## 1. Create a post
+POST http://localhost:5050/api/posts/
+req body example:
+{
+  "user_id": 1,
+  "post_type": "Lost",
+  "title": "Lost Wallet",
+  "description": "Black wallet near cafeteria",
+  "category": "Wallet",
+  "address": "Campus Cafeteria",
+  "contact": "esther@example.com",
+  "image": null
+}
+## 2. Get all posts
+GET http://localhost:5050/api/posts/
+## 3. Get post by post id
+GET http://localhost:5050/api/posts/post_id
+## 4. Get post by type
+get all lost posts:
+GET http://localhost:5050/api/posts/type/Lost
+get all found posts:
+GET http://localhost:5050/api/posts/type/Found
+## 5. Get post by user id
+GET http://localhost:5050/api/posts/user/user_id
+## 6. Update a post
+PUT http://localhost:5050/api/posts/post_id
+req body example:
+{
+    "title": "Lost backpack blue",
+    "description": "Blue backpack left in lecture hall 101, around 11am today",
+    "category": "Bag",
+    "address": "Lecture Hall 101",
+    "contact": "alice@example.com",
+}
+## 7. Mark a post as resolved
+PUT http://localhost:5050/api/posts/post_id/resolved
+## 8. Delete a post
+DELETE http://localhost:5050/api/posts/post_id
+
+
+# HOW TO TEST LOGIN SYSTEM (with postman):
 
 0. Download postman if you don't have it
 1. Run in terminal: npm run dev
@@ -37,27 +97,7 @@ cd backend and run: mysql -u root -p < ./db/schema.sql
 5. Try out other tests (sign up more users, logging in with wrong password, with an email that doesn't exist.... )
 
 
-# How to integrate with frontend
-## 1. Sign up
-On submit:
-	•	Send a POST request to http://localhost:5050/api/auth/signup
-    •   Body JSON example:
-        {
-            "name": "David",
-            "email": "davidBigberg@gmail.com",
-            "password": "123456"
-        }
-## 2. Log in
-On submit:
-	•	Send a POST request to http://localhost:5050/api/auth/login
-    •   Body JSON example:
-        {
-            "email": "davidBigberg@example.com",
-            "password": "123456"
-        }
-
-
-# BACKEND STRUCTURE: (user accounts only)
+# BACKEND STRUCTURE:
 backend/
 ├── package.json
 ├── server.js                //sets up a server, registers all routes
