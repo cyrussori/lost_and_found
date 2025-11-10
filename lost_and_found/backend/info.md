@@ -64,8 +64,10 @@ backend/
 ├── db/
 │   └── connection.js        //creates connection to MYSQL database
 ├── models/
-│   └── userModel.js         //interacts with the database about user inqueries
+│   ├── userModel.js         //interacts with the database about user inqueries
+│   └── postRoutes.js
 └── routes/
-    └── authRoutes.js        //handles login and signup
+    ├── authRoutes.js        //handles login and signup
+    └── postRoutes.js        //handles login and signup
 helper:
         clearDB.js           //clears the accounts database

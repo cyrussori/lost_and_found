@@ -12,12 +12,14 @@ CREATE TABLE users (
 CREATE TABLE Posts (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,
+  post_type ENUM('Lost', 'Found') NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
   category ENUM('Electronics','Clothes','Bottle','Keys','Bag','Wallet','Other') NOT NULL, 
   address VARCHAR(255) NOT NULL,
   contact VARCHAR(100) NOT NULL,
   image LONGBLOB,
+  status ENUM('Active', 'Resolved') DEFAULT 'Active',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE
