@@ -7,9 +7,9 @@ import { ReactComponent as ProfileIcon } from '../images/profile.svg'
 
 export default function Navbar() {
   const location = useLocation();
-// TODO: Post card pop-up, search page.
+// TODO: Post card pop-up, search page => Lift state up.
   const navLinks = [
-    { path: '/', Icon: HomeIcon },
+    { path: '/browse', Icon: HomeIcon },
     { path: '/search', Icon: SearchIcon },
     { path: '/post', Icon: PostIcon },
     { path: '/profile', Icon: ProfileIcon },
@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-header">
-        <h2>Lost & Found</h2>
+        <Link to="/" className="brand"><h2>Lost & Found</h2></Link>
       </div>
       <ul className="navbar-links">
         {navLinks.map(({ path, Icon }) => ( 
