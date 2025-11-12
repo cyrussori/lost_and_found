@@ -6,3 +6,9 @@ db.query("TRUNCATE TABLE users;", (err) => {
   console.log("Users table cleared!");
   process.exit();
 });
+
+db.query("TRUNCATE TABLE Posts;", (err) => {
+  if (err) throw err;
+  console.log("Posts table cleared!");
+  process.exit();
+});

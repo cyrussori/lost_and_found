@@ -41,8 +41,7 @@ req body example:
   "description": "Black wallet near cafeteria",
   "category": "Wallet",
   "address": "Campus Cafeteria",
-  "contact": "esther@example.com",
-  "image": null
+  "contact": "esther@example.com"
 }
 ## 2. Get all posts
 GET http://localhost:5050/api/posts/

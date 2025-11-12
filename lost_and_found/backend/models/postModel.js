@@ -2,12 +2,12 @@
 
 import db from "../db/connection.js"
 
-export const createPost = (user_id, post_type, title, description, category, address, contact, image, callback) => {
+export const createPost = (user_id, post_type, title, description, category, address, contact, callback) => {
   const sql = `
-    INSERT INTO Posts (user_id, post_type, title, description, category, address, contact, image)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO Posts (user_id, post_type, title, description, category, address, contact)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
-  db.query(sql, [user_id, post_type, title, description, category, address, contact, image], callback);
+  db.query(sql, [user_id, post_type, title, description, category, address, contact], callback);
 };
 
 export const getAllPosts = (callback) => {

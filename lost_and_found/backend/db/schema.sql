@@ -18,7 +18,6 @@ CREATE TABLE IF NOT EXISTS Posts (
   category ENUM('Electronics','Clothes','Bottle','Keys','Bag','Wallet','Other') NOT NULL, 
   address VARCHAR(255) NOT NULL,
   contact VARCHAR(100) NOT NULL,
-  image LONGBLOB,
   status ENUM('Active', 'Resolved') DEFAULT 'Active',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

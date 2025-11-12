@@ -7,9 +7,9 @@ const router = express.Router();
 
 // Create a new post
 router.post("/", (req, res) => {
-  const { user_id, post_type, title, description, category, address, contact, image } = req.body;
+  const { user_id, post_type, title, description, category, address, contact} = req.body;
 
-  createPost(user_id, post_type, title, description, category, address, contact, image, (err, result) => {
+  createPost(user_id, post_type, title, description, category, address, contact, (err, result) => {
     if (err) {
       console.error("Error creating post:", err);
       return res.status(500).json({ message: "Failed to create post" });
