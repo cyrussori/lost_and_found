@@ -1,0 +1,44 @@
+.browseHWrapper {
+  display: flex;
+  justify-content: center;
+}
+.browseHeader {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  width: 640px;
+  margin-bottom: 11px;
+}
+
+.browseHeader > button {
+  margin: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: white;
+  height: 100%;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  outline: none;
+  align-items: center;
+}
+
+.browseWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.browseCard {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 15px;
+  width: 640px;
+  height: calc(100vh);
+  padding-left: 20px;
+  padding-right: 20px;
+}
