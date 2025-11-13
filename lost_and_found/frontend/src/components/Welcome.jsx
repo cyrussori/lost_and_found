@@ -24,10 +24,10 @@ export default function Welcome() {
         <div className="linkBar">
           <button className="btnStyle"> Lost </button>
           <button className="btnStyle"> Found </button>
-          <Link to="/login">Login</Link>
           <Link to="/browse">
             <button>Browse Posts</button>
           </Link>
+          <Link to="/login">Login</Link>
         </div>
       </div>
 

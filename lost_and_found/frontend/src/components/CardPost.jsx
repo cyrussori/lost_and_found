@@ -3,12 +3,13 @@ export default function CardPost({ post }) {
     <div className="cardPost">
       <div className="cardStyle">
         <h4>{post.title}</h4>
-        <p><strong>{post.category}</strong></p>
+        <p>
+          <strong>{post.category}</strong>
+        </p>
         <p>{post.description}</p>
-        <p><em>{post.address}</em></p>
-        {post.contact && (
-          <p><strong>Contact:</strong> {post.contact}</p>
-        )}
+        <p>
+          <em>{post.location}</em>
+        </p>
         {post.image && (
           <img
             src={URL.createObjectURL(post.image)}

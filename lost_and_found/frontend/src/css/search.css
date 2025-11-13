@@ -1,6 +1,8 @@
 .searchHWrapper {
   display: flex;
-  justify-content: center;
+  justify-content: column;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .searchBar {
@@ -35,4 +37,25 @@
   width: 25px;
   height: 25px;
   margin-bottom: 5px;
+}
+
+.searchContent {
+  margin-left: 200px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchHWrapper input{
+  flex: 1;
+  min-width: 0;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.browseWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
 }

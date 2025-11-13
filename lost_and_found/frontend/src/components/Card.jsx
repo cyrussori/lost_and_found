@@ -4,19 +4,19 @@ export default function Card({ onClose, onReport }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [address, setAddress] = useState("");
-  const [contact, setContact] = useState("");
+  const [location, setLocation] = useState("");
   const [image, setImage] = useState(null);
+  const [type, setType] = useState("lost");
 
   function handleSubmit(e) {
     e.preventDefault();
     const post = {
       id: crypto.randomUUID?.() ?? String(Date.now()),
       title,
+      type,
       description,
       category,
-      address,
-      contact,
+      location,
       image,
     };
     onReport(post);
@@ -35,6 +35,17 @@ export default function Card({ onClose, onReport }) {
             required
             onChange={(e) => setTitle(e.target.value)}
           />
+
+          <label>Type</label>
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+          >
+            <option value="">Select type</option>
+            <option value="Lost">Lost</option>
+            <option value="Found">Found</option>
+          </select>
 
           <label>Description</label>
           <textarea
@@ -59,21 +70,12 @@ export default function Card({ onClose, onReport }) {
             <option value="Other">Other</option>
           </select>
 
-          <label>Address / Location</label>
+          <label>Location</label>
           <input
             type="text"
-            value={address}
+            value={location}
             required
-            onChange={(e) => setAddress(e.target.value)}
-          />
-
-          <label>Contact Info</label>
-          <input
-            type="text"
-            value={contact}
-            required
-            onChange={(e) => setContact(e.target.value)}
-            placeholder="Phone number, email, etc."
+            onChange={(e) => setLocation(e.target.value)}
           />
 
           <label>Picture (optional)</label>
@@ -84,12 +86,10 @@ export default function Card({ onClose, onReport }) {
           />
 
           <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
-            <button type="submit" className="btnStyle">Report</button>
-            <button
-              type="button"
-              className="btnCancel"
-              onClick={onClose}
-            >
+            <button type="submit" className="btnStyle">
+              Report
+            </button>
+            <button type="button" className="btnCancel" onClick={onClose}>
               Close
             </button>
           </div>
