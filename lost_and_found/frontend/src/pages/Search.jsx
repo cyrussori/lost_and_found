@@ -4,41 +4,21 @@ import CardPost from "../components/CardPost";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
 import "../css/search.css";
 import "../css/cardPost.css";
-
-const MOCK_FEED = [
-  {
-    id: 1,
-    title: "Lost backpack",
-    description: "Black backpack in library",
-    category: "Bag",
-    type: "lost",
-    address: "Library",
-    contact: "123",
-  },
-  {
-    id: 2,
-    title: "Found keys",
-    description: "Keys on cafeteria table",
-    category: "Keys",
-    type: "found",
-    address: "Cafeteria",
-    contact: "456",
-  },
-  {
-    id: 3,
-    title: "Lost umbrella",
-    description: "Blue umbrella near gym",
-    category: "Other",
-    type: "lost",
-    address: "Gym",
-    contact: "789",
-  },
-];
+import { getPosts } from "../services/api.js";
 
 export default function Search() {
-  const [feed] = useState(MOCK_FEED);
+  const [feed, setFeed] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredFeed, setFilteredFeed] = useState(MOCK_FEED);
+  const [filteredFeed, setFilteredFeed] = useState([]);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      const posts = await getPosts();
+      setFeed(posts);
+      setFilteredFeed(posts);
+    }
+    fetchPosts();
+  }, []);
 
   useEffect(() => {
     const lower = searchTerm.toLowerCase();
@@ -55,7 +35,7 @@ export default function Search() {
     <>
       <Navbar />
       <div className="searchContent">
-        {/* 搜索栏 */}
+        {/* Search box */}
         <div className="searchHWrapper">
           <SearchIcon style={{ width: 30, height: 30 }} />
           <input
@@ -66,7 +46,7 @@ export default function Search() {
           />
         </div>
 
-        {/* 搜索结果 */}
+        {/* Search result */}
         <div className="browseWrapper">
           {filteredFeed.length === 0 ? (
             <div>No posts found</div>
