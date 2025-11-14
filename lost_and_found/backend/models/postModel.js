@@ -19,22 +19,37 @@ export const createImage = (post_id, file_path, file_name, callback) => {
 };
 
 export const getAllPosts = (callback) => {
-  const sql = `SELECT * FROM Posts ORDER BY created_at DESC`;
+  const sql = `SELECT p.*, i.file_path
+    FROM Posts p
+    LEFT JOIN images i ON p.id = i.post_id
+    ORDER BY p.created_at DESC`;
   db.query(sql, callback);
 };
 
 export const getPostById = (id, callback) => {
-  const sql = `SELECT * FROM Posts WHERE id = ?`;
+  const sql = `SELECT p.*, i.file_path
+    FROM Posts p
+    LEFT JOIN images i ON p.id = i.post_id 
+    WHERE p.id = ?  
+    ORDER BY p.created_at DESC`;
   db.query(sql, [id], callback);
 };
 
 export const getPostsByType = (post_type, callback) => {
-  const sql = `SELECT * FROM Posts WHERE post_type = ?`;
+  const sql = `SELECT p.*, i.file_path
+    FROM Posts p
+    LEFT JOIN images i ON p.id = i.post_id 
+    WHERE p.post_type = ? 
+    ORDER BY p.created_at DESC`;
   db.query(sql, [post_type], callback);
 };
 
 export const getPostsByUserId = (user_id, callback) => {
-  const sql = `SELECT * FROM Posts WHERE user_id = ? ORDER BY created_at DESC`;
+  const sql = `SELECT p.*, i.file_path
+    FROM Posts p
+    LEFT JOIN images i ON p.id = i.post_id 
+    WHERE p.user_id = ? 
+    ORDER BY p.created_at DESC`;
   db.query(sql, [user_id], callback);
 };
 

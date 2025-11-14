@@ -27,7 +27,7 @@ const router = express.Router();
 // Create a new post
 router.post("/", upload.single("image"), (req, res) => {
   const { user_id, post_type, title, description, category, address, contact} = req.body;
-  const imagePath = req.file? req.file.path: null;
+  const imagePath = req.file ? `uploads/${req.file.filename}` : null;
 
   createPost(user_id, post_type, title, description, category, address, contact, (err, result) => {
     if (err) {
