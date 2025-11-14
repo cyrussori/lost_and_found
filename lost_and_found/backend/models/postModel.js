@@ -10,6 +10,14 @@ export const createPost = (user_id, post_type, title, description, category, add
   db.query(sql, [user_id, post_type, title, description, category, address, contact], callback);
 };
 
+export const createImage = (post_id, file_path, file_name, callback) => {
+  const sql = `
+    INSERT INTO Images (post_id, file_path, file_name)
+    VALUES (?, ?, ?)
+  `;
+  db.query(sql, [post_id, file_path, file_name], callback);
+};
+
 export const getAllPosts = (callback) => {
   const sql = `SELECT * FROM Posts ORDER BY created_at DESC`;
   db.query(sql, callback);

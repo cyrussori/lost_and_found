@@ -33,16 +33,20 @@ On submit:
 # Posts
 ## 1. Create a post
 POST http://localhost:5050/api/posts/
-req body example:
-{
-  "user_id": 1,
-  "post_type": "Lost",
-  "title": "Lost Wallet",
-  "description": "Black wallet near cafeteria",
-  "category": "Wallet",
-  "address": "Campus Cafeteria",
-  "contact": "esther@example.com"
-}
+select "form-data"
+example of Key and Value: (select "Text" for Type)
+    Key         Value
+  user_id       1,
+  post_type     Lost,
+  title         Lost Wallet
+  description   Black wallet near cafeteria
+  category      Wallet
+  address       Campus Cafeteria
+  contact       esther@example.com
+and then add the image:
+Key         Type        Value
+image       File        (select a file from your computer)
+
 ## 2. Get all posts
 GET http://localhost:5050/api/posts/
 ## 3. Get post by post id

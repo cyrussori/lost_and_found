@@ -1,20 +1,53 @@
 //routes handling posts
-
 import express from "express";
-import { createPost, getAllPosts, getPostById, getPostsByType, getPostsByUserId, updatePost, markPostResolved, deletePost } from "../models/postModel.js";
+import { createPost, createImage, getAllPosts, getPostById, getPostsByType, getPostsByUserId, updatePost, markPostResolved, deletePost } from "../models/postModel.js";
+
+// handling images upload
+// multer helps parse the form data request, saves the uploaded file somewhere, and adds a req.file so that you could access info about the image file
+import multer from "multer"
+import path from "path"
+import { fileURLToPath } from "url";
+// Specifies an absolute file path to save uploaded files (post images) in the /uploads folder
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const storage = multer.diskStorage({ // tells multer to save the file onto hard drive
+    destination: (req, file, cb) => { // destination: save the file in the uploads folder
+        cb(null, path.join(__dirname, "../uploads"));
+    },
+    filename: (req, file, cb) => { // rename the file to have a unique file name (with Date)
+        cb(null, Date.now() + path.extname(file.originalname));
+    },
+});
+
+const upload = multer({storage});
 
 const router = express.Router();
 
 // Create a new post
-router.post("/", (req, res) => {
+router.post("/", upload.single("image"), (req, res) => {
   const { user_id, post_type, title, description, category, address, contact} = req.body;
+  const imagePath = req.file? req.file.path: null;
 
   createPost(user_id, post_type, title, description, category, address, contact, (err, result) => {
     if (err) {
       console.error("Error creating post:", err);
       return res.status(500).json({ message: "Failed to create post" });
     }
-    res.status(201).json({ message: "Post created successfully", postId: result.insertId });
+    // the insertId field of the returned result of sql is the autoincremented id of the post (post id)
+    const postId = result.insertId;
+    // create image
+    if (imagePath) {
+      createImage(postId, imagePath, req.file.originalname, (err2) => {
+        if (err2){
+            console.error("Error saving image:", err2);
+            return res.status(500).json({message: "Failed to save image"});
+        }
+        res.status(201).json({ message: "Post created successfully (with image)", postId});
+      });
+    } else {
+    res.status(201).json({ message: "Post created successfully (no image)", postId});
+    }
   });
 });
 
