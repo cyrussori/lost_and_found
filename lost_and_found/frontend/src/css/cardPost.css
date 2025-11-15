@@ -1,0 +1,22 @@
+.cardPost {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.cardStyle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cardPost p,
+.cardPost h4 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}

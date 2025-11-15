@@ -1,13 +1,24 @@
 import "../css/profile.css";
 import { Link } from "react-router-dom";
+import Navbar from '../components/Navbar';
 
 // TODO:  
 // - User => set to fullname, email => set to email
 //          * Bring info from login on navigation
 // - Way to navigate to main page. 
-export default function Login() {
+function CardEditProfile() {
+  return (
+    <div className="cardEdit">
+      <div className="cardEditStyle">
+        
+      </div>
+    </div>
+  );
+}
+export default function Profile() {
   return (
     <>
+      <Navbar/>
       {/*Header*/}
       <div className="headerWrapper">
         <h4>Profile</h4>
@@ -22,7 +33,7 @@ export default function Login() {
             <div className="tempForImage"></div>
         </div>
         <div className="lowerCard">
-            <button className="editProfileBtn">EDIT PROFILE</button>
+            <button className="editProfileBtn">Edit profile</button>
             <div className="colWrapper">
                 <div className="colBtns">
                     <button>Posts</button>
