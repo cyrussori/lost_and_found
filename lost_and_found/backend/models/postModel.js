@@ -1,6 +1,9 @@
 //Helper functions that interact with mysql database
 
 import db from "../db/connection.js"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 export const createPost = (user_id, post_type, title, description, category, address, contact, callback) => {
   const sql = `
@@ -71,7 +74,51 @@ export const markPostResolved = (id, callback) => {
   db.query(sql, [id], callback);
 };
 
-export const deletePost = (id, callback) => {
-  const sql = `DELETE FROM Posts WHERE id = ?`;
-  db.query(sql, [id], callback);
-};
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export function deletePost(id, callback) {
+  // 1. Check if post exists
+  db.query("SELECT * FROM Posts WHERE id = ?", [id], async (err, postRows) => {
+    if (err) return callback(err);
+
+    if (postRows.length === 0) {
+      return callback(new Error("Post not found"));
+    }
+
+    // 2. Check if image exists
+    db.query("SELECT file_path FROM Images WHERE post_id = ?", [id], async (err, imageRows) => {
+      if (err) return callback(err);
+
+      const filePath = imageRows.length > 0 ? imageRows[0].file_path : null;
+
+      // 3. Delete image database row
+      db.query("DELETE FROM Images WHERE post_id = ?", [id], async (err) => {
+        if (err) return callback(err);
+
+        // 4. Delete post database row
+        db.query("DELETE FROM Posts WHERE id = ?", [id], async (err) => {
+          if (err) return callback(err);
+
+          // 5. Delete actual image file if it exists
+          if (filePath) {
+            const absolutePath = path.join(process.cwd(), filePath);
+            try {
+              fs.unlink(absolutePath, err => {
+                if (err) {
+                  console.error("Warning: image file deletion failed:", err.message);
+                }
+              });
+            } catch (err) {
+              console.error("Warning: file deletion failed:", err.message);
+              // Delete will not fail if image file failed to get deleted, instead will throw warning
+            }
+          }
+
+          callback(null, { success: true });
+        });
+      });
+    });
+  });
+}

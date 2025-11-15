@@ -69,7 +69,7 @@ req body example:
     "contact": "alice@example.com",
 }
 ## 7. Mark a post as resolved
-PUT http://localhost:5050/api/posts/post_id/resolved
+PUT http://localhost:5050/api/posts/post_id/resolve
 ## 8. Delete a post
 DELETE http://localhost:5050/api/posts/post_id
 
