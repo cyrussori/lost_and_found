@@ -17,6 +17,8 @@ app.use(express.json());
 // For any request that starts with /api/auth, use the router defined in authRoutes.js
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes)
+// Make the uploads folder publicly accessible, so that frontend can fetch the uploaded images
+app.use("/uploads", express.static("uploads"));
 
 // When someone requests http://localhost:5050/uploads/image.jpg, find the file in the backend uploads/ folder, and sends it to the browser
 const __filename = fileURLToPath(import.meta.url);

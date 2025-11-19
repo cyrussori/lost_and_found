@@ -10,9 +10,10 @@ export default function CardPost({ post }) {
         <p>
           <em>{post.address}</em>
         </p>
-        {post.image && (
+        {post.file_path && (
           <img
-            src={URL.createObjectURL(post.image)}
+            // The src now points to the full URL where the backend serves the image
+            src={`http://localhost:5050/${post.file_path}`} 
             alt="Lost item"
             style={{ width: "100%", borderRadius: "8px", marginTop: "10px" }}
           />
