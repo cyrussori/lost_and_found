@@ -20,7 +20,7 @@ export default function Browse() {
   const filteredFeed =
     filterType === "all"
       ? feed
-      : feed.filter((post) => post.type === filterType);
+      : feed.filter((post) => post.post_type === filterType);
 
   return (
     <>
@@ -30,8 +30,8 @@ export default function Browse() {
       <div className="browseHWrapper">
         <div className="browseHeader">
           <button onClick={() => setFilterType("all")}>All</button>
-          <button onClick={() => setFilterType("lost")}>Lost</button>
-          <button onClick={() => setFilterType("found")}>Found</button>
+          <button onClick={() => setFilterType("Lost")}>Lost</button>
+          <button onClick={() => setFilterType("Found")}>Found</button>
         </div>
       </div>
 

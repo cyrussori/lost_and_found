@@ -8,7 +8,7 @@ export default function CardPost({ post }) {
         </p>
         <p>{post.description}</p>
         <p>
-          <em>{post.location}</em>
+          <em>{post.address}</em>
         </p>
         {post.image && (
           <img
