@@ -1,12 +1,13 @@
 import "../css/profile.css";
 import { Link } from "react-router-dom";
-import Navbar from '../components/Navbar';
+import Navbar from "../components/Navbar";
+import { useState, useEffect } from "react";
 
-// TODO:  
+// TODO:
 // - User => set to fullname, email => set to email
 //          * Bring info from login on navigation
-// - Way to navigate to main page. 
-function CardEditProfile() {
+// - Way to navigate to main page.
+/*function CardEditProfile() {
   return (
     <div className="cardEdit">
       <div className="cardEditStyle">
@@ -19,7 +20,7 @@ export default function Profile() {
   return (
     <>
       <Navbar/>
-      {/*Header*/}
+      
       <div className="headerWrapper">
         <h4>Profile</h4>
       </div>
@@ -45,6 +46,17 @@ export default function Profile() {
       </div>
       </div>
 
+    </>
+  );
+}*/
+
+export default function Profile() {
+  const [loading, setLoading] = useState(true);
+
+  return (
+    <>
+      <Navbar />
+      {loading && <p>Loading...</p>}
     </>
   );
 }

@@ -18,4 +18,10 @@ export default defineConfig({
       include: '**/*.svg'
     }),
   ],
-})
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.js',
+    include: ['tests/**/*.test.jsx'],
+  },
+});
