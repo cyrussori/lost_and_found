@@ -2,6 +2,7 @@ import "../css/profile.css";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 // TODO:
 // - User => set to fullname, email => set to email
@@ -52,11 +53,25 @@ export default function Profile() {
 
 export default function Profile() {
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    axios.get("/api/users/me").then((res) => {
+      setUser(res.data);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <>
       <Navbar />
       {loading && <p>Loading...</p>}
+      {user && (
+        <div>
+          <h2>{user.name}</h2>
+          <p>{user.email}</p>
+        </div>
+      )}
     </>
   );
 }
