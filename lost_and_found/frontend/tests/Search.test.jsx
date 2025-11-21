@@ -79,4 +79,16 @@ describe("Search page", () => {
       expect(screen.getByText("No posts found")).toBeInTheDocument();
     });
   });
+
+  // Test 4: filters correct by lost / found type
+  it("filters posts by type", async () => {
+    const typeSelect = screen.getAllByRole("combobox")[0];
+    fireEvent.change(typeSelect, { target: { value: "found" } });
+
+    await waitFor(() => {
+      expect(screen.getByText("Found Wallet")).toBeInTheDocument();
+      expect(screen.getByText("Found Keys")).toBeInTheDocument();
+      expect(screen.queryByText("Lost Phone")).not.toBeInTheDocument();
+    });
+  });
 });
