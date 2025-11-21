@@ -56,27 +56,41 @@ export default function Profile() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/me`)
-      .then((res) => {
-        console.log("user data:", res.data);
-        setUser(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching user:", err);
-        setLoading(false);
-      });
+    const fakeUser = { name: "Josie Bruin", email: "josieBruin@ucla.edu" };
+    setTimeout(() => {
+      setUser(fakeUser);
+      setLoading(false);
+    }, 500);
   }, []);
 
   return (
     <>
       <Navbar />
+      <div className="headerWrapper">
+        <h4>Profile</h4>
+      </div>
       {loading && <p>Loading...</p>}
       {user && (
-        <div>
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
+        <div className="profileWrapper">
+          <div className="profileCard">
+            <div className="contactInfo">
+              <div className="rightContactInfo">
+                <h2>{user.name}</h2>
+                <p>{user.email}</p>
+              </div>
+              <div className="tempForImage"></div>
+            </div>
+            <div className="lowerCard">
+              <button className="editProfileBtn">Edit profile</button>
+              <div className="colWrapper">
+                <div className="colBtns">
+                  <button>Posts</button>
+                  <button>Replies</button>
+                  <button>IDK</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>

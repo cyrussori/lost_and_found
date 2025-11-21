@@ -4,48 +4,41 @@ import Profile from "../src/pages/Profile";
 import { vi } from "vitest";
 import { act } from "react";
 
-vi.mock("axios", () => {
-  return {
-    default: {
-      get: vi.fn(),
-    },
-  };
-});
+vi.mock("axios");
 
 import axios from "axios";
 
-// Test 1: shows loading on mount
-test("shows loading message while fetching user info", () => {
-  axios.get.mockResolvedValueOnce({
-    data: {
-      name: "Josie Bruin",
-      email: "josieBruin@ucla.edu",
-    },
-  });
-  render(
-    <MemoryRouter>
-      <Profile />
-    </MemoryRouter>
-  );
-  expect(screen.getByText(/loading/i)).toBeInTheDocument();
-});
+describe("Profile page", () => {
+  const mockUser = { name: "Josie Bruin", email: "josieBruin@ucla.edu" };
 
-// Test 2: renders user full name and email after fetch
-test("renders user full name and email after fetch", async () => {
-  axios.get.mockResolvedValueOnce({
-    data: {
-      name: "Josie Bruin",
-      email: "josieBruin@ucla.edu",
-    },
+  beforeEach(() => {
+    axios.get.mockResolvedValue({ data: mockUser });
   });
-  await act(async () => {
+
+  // Test 1: shows loading on mount
+  it("shows loading message while fetching user info", async () => {
     render(
       <MemoryRouter>
         <Profile />
       </MemoryRouter>
     );
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
 
-  expect(await screen.findByText("Josie Bruin")).toBeInTheDocument();
-  expect(await screen.findByText("josieBruin@ucla.edu")).toBeInTheDocument();
+  // Test 2: renders user full name and email after fetch
+  it("renders user full name and email after fetch", async () => {
+    render(
+      <MemoryRouter>
+        <Profile />
+      </MemoryRouter>
+    );
+
+    const name = await screen.findByText(mockUser.name);
+    const email = await screen.findByText(mockUser.email);
+    const editBtn = screen.getByText(/edit profile/i);
+
+    expect(name).toBeInTheDocument();
+    expect(email).toBeInTheDocument();
+    expect(editBtn).toBeInTheDocument();
+  });
 });
