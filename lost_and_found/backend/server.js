@@ -26,6 +26,18 @@ const __dirname = path.dirname(__filename); // specifies absolute path to curren
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const PORT = 5050;
+
+app.get('/api/users/me', async (req, res) => {
+  try {
+    const userId = req.user.id; // 从认证中获取
+    const [rows] = await db.promise().query('SELECT name, email FROM users WHERE id = ?', [userId]);
+    res.json(rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`);
 });

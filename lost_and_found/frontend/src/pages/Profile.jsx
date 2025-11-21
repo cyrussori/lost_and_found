@@ -56,10 +56,17 @@ export default function Profile() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios.get("/api/users/me").then((res) => {
-      setUser(res.data);
-      setLoading(false);
-    });
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/me`)
+      .then((res) => {
+        console.log("user data:", res.data);
+        setUser(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching user:", err);
+        setLoading(false);
+      });
   }, []);
 
   return (
