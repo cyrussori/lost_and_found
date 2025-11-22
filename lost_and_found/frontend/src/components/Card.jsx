@@ -6,20 +6,25 @@ export default function Card({ onClose, onReport }) {
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [image, setImage] = useState(null);
-  const [type, setType] = useState("lost");
-
+  const [type, setType] = useState("Lost");
+  const [contact, setContact] = useState("");
   function handleSubmit(e) {
     e.preventDefault();
     const post = {
-      id: crypto.randomUUID?.() ?? String(Date.now()),
+      //id: crypto.randomUUID?.() ?? String(Date.now()),
       title,
-      type,
+      post_type: type,
       description,
       category,
-      location,
+      address: location,
+      contact,
       image,
     };
-    onReport(post);
+    const formData = new FormData();
+    Object.entries(post).forEach(([key, val]) => {
+      if (val) formData.append(key, val);
+    });
+    onReport(formData);
     onClose();
   }
 
@@ -76,6 +81,14 @@ export default function Card({ onClose, onReport }) {
             value={location}
             required
             onChange={(e) => setLocation(e.target.value)}
+          />
+
+          <label>Contact</label>
+          <input
+            type="text"
+            value={contact}
+            required
+            onChange={(e) => setContact(e.target.value)}
           />
 
           <label>Picture (optional)</label>
