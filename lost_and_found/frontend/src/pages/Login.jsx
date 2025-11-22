@@ -24,17 +24,13 @@ export default function Login() {
       //       nav to personal profile (dashboard from user story).
       const userData = await login(loginData);
       console.log(userData);
-      const validUserData = () => {
-        return userData.token && (userData.user?.id || userData.userId);
-      };
-      if (validUserData) {
-        localStorage.setItem("token", userData.token);
-        localStorage.setItem("user", userData.user?.id);
-        localStorage.setItem("user", userData.userId);
-      } else {
-        throw new Error("Invalid response from server");
+      if (!userData?.user || !userData?.user.id) {
+        throw new Error("Invalid res")
       }
-      nav("/profile");
+      localStorage.setItem("token", userData.token);
+      localStorage.setItem("user", JSON.stringify(userData.user));  
+      localStorage.setItem("userId", String(userData.user.id))    
+      nav(`/profile/${userData.user.id}`);
     } catch (error) {
       console.error("Erroneous data: ", error);
       setErr("Check the account information you entered and try again.");

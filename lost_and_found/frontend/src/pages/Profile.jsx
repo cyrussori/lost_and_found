@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { API_BASE } from "../services/api";
 import axios from "axios";
 
 // TODO:
@@ -52,7 +54,32 @@ export default function Profile() {
 export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-
+  const { id } = useParams();
+/*
+  useEffect(() => {
+    async function fetchUser() {
+      const loggedUser = localStorage.getItem('user');
+      if (loggedUser) {
+        setUser(JSON.parse(loggedUser))
+      } else {
+        const res = await fetch(`${API_BASE}/users/${id}`, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        });
+        const data = await res.json();
+        setUser(data);
+      }
+    }
+    fetchUser();
+  }, [username])
+*/
+  useEffect(() => {
+      const stored = localStorage.getItem('user');
+      if (stored) {
+      setUser(JSON.parse(stored));
+    }
+    setLoading(false);
+  }, [id]);
+/*
   useEffect(() => {
     const fakeUser = { name: "Josie Bruin", email: "josieBruin@ucla.edu" };
     setTimeout(() => {
@@ -60,7 +87,7 @@ export default function Profile() {
       setLoading(false);
     }, 500);
   }, []);
-
+*/
   return (
     <>
       <div className="headerWrapper">

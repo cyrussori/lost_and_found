@@ -21,7 +21,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route element={<Layout setPosts={setPosts}/>}>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/browse" element={<Browse posts={posts}/>} />
           <Route path="/search" element={<Search />} />
         </Route>

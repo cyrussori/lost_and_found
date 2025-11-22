@@ -7,11 +7,13 @@ import { ReactComponent as ProfileIcon } from '../images/profile.svg'
 export default function Navbar({ onPostClick }) {
   const location = useLocation();
 // TODO: Post card pop-up, search page => Lift state up.
+// Get profile from user storage
+  const userId = localStorage.getItem("userId");
   const navLinks = [
     { path: '/browse', Icon: HomeIcon },
     { path: '/search', Icon: SearchIcon },
     { path: '/post', Icon: PostIcon },
-    { path: '/profile', Icon: ProfileIcon },
+    { path: `/profile/${userId}`, Icon: ProfileIcon },
   ];
 
   return (
