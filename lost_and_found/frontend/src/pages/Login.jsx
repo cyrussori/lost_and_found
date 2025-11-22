@@ -1,4 +1,3 @@
-import "../css/login.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../services/api.js";

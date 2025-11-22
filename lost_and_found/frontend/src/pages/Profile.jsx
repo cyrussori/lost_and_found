@@ -1,6 +1,4 @@
-import "../css/profile.css";
 import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -65,7 +63,6 @@ export default function Profile() {
 
   return (
     <>
-      <Navbar />
       <div className="headerWrapper">
         <h4>Profile</h4>
       </div>

@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
 import CardPost from "../components/CardPost";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
-import "../css/search.css";
-import "../css/cardPost.css";
 import { getPosts } from "../services/api.js";
 
 export default function Search() {
@@ -11,7 +8,6 @@ export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFeed, setFilteredFeed] = useState([]);
   const [typeFilter, setTypeFilter] = useState("");
-
   // Fetch posts
   useEffect(() => {
     async function fetchPosts() {
@@ -38,7 +34,6 @@ export default function Search() {
 
   return (
     <>
-      <Navbar />
       <div className="searchContent">
         {/* Type filter */}
         <div className="filtersWrapper">
