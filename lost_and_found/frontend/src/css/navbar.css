@@ -59,3 +59,27 @@
   font-size: 1.3rem;
 }
 
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 20px;
+  color: #ecf0f1;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+}
+
+.icon-wrapper:hover {
+  background-color: #6ea3d7;
+  border-radius: 20px;
+  width: 45px;
+}
+
+.icon-wrapper.active, .brand {
+  background-color: #6ea3d7;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+  width: 45px;
+}
