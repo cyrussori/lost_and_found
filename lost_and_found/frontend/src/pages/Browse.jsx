@@ -1,31 +1,16 @@
-import "../css/browse.css";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
 import CardPost from "../components/CardPost";
-import { getPosts } from "../services/api.js";
 
-export default function Browse() {
-  const [feed, setFeed] = useState([]);
+export default function Browse({ posts }) {
   const [filterType, setFilterType] = useState("all");
-
-  useEffect(() => {
-    async function fetchFeed() {
-      const posts = await getPosts();
-      setFeed(posts);
-    }
-    fetchFeed();
-  }, []);
 
   const filteredFeed =
     filterType === "all"
-      ? feed
-      : feed.filter((post) => post.post_type === filterType);
+      ? posts
+      : posts.filter((post) => post.post_type === filterType);
 
   return (
     <>
-      <Navbar />
-
       {/*Header*/}
       <div className="browseHWrapper">
         <div className="browseHeader">
