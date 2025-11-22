@@ -1,11 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
-import '../css/navbar.css';
 import { ReactComponent as HomeIcon } from '../images/home.svg'
 import { ReactComponent as SearchIcon } from '../images/search.svg'
 import { ReactComponent as PostIcon } from '../images/post.svg'
 import { ReactComponent as ProfileIcon } from '../images/profile.svg'
 
-export default function Navbar() {
+export default function Navbar({ onPostClick }) {
   const location = useLocation();
 // TODO: Post card pop-up, search page => Lift state up.
   const navLinks = [
@@ -23,12 +22,18 @@ export default function Navbar() {
       <ul className="navbar-links">
         {navLinks.map(({ path, Icon }) => ( 
           <li key={path}> 
+            { path === "/post" ? (
+              <div onClick={onPostClick} className="icon-wrapper">
+                <Icon className="icon-svg" width={40} height={40}/>
+              </div>
+            ) : (
             <Link 
               to={path}
               className={location.pathname === path ? 'active' : ''}
             >
               <Icon className="icon-svg" width={40} height={40} /> 
             </Link>
+            )}
           </li>
         ))}
       </ul>
