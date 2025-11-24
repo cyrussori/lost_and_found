@@ -27,9 +27,11 @@ export default function Login() {
       if (!userData?.user || !userData?.user.id) {
         throw new Error("Invalid res")
       }
+      /*
       localStorage.setItem("token", userData.token);
       localStorage.setItem("user", JSON.stringify(userData.user));  
       localStorage.setItem("userId", String(userData.user.id))    
+      */
       nav(`/profile/${userData.user.id}`);
     } catch (error) {
       console.error("Erroneous data: ", error);

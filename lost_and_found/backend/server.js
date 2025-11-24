@@ -41,15 +41,12 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const PORT = 5050;
 
-app.get('/api/users/me', async (req, res) => {
-  try {
-    const userId = req.user.id; // 从认证中获取
-    const [rows] = await db.promise().query('SELECT name, email FROM users WHERE id = ?', [userId]);
-    res.json(rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
+app.get('/api/me', async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
   }
+  
+  res.json({ user: req.session.user });
 });
 
 app.listen(PORT, () => {

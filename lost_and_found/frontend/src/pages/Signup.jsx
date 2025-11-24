@@ -45,6 +45,7 @@ export default function Signup() {
       const validUserData = () => {
         return userData.token && (userData.user?.id || userData.userId);
       }
+      /*
       if (validUserData) {
         localStorage.setItem('token', userData.token);
         localStorage.setItem('user', userData.user?.id);
@@ -52,6 +53,7 @@ export default function Signup() {
       } else {
         throw new Error('Invalid response from server');
       }
+        */
       nav("/login");
     } catch(error) {
       console.error("Erroneous data: ", error)

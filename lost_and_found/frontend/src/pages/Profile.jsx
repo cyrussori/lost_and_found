@@ -54,7 +54,7 @@ export default function Profile() {
 export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const { id } = useParams();
+  //const { id } = useParams();
 /*
   useEffect(() => {
     async function fetchUser() {
@@ -72,13 +72,28 @@ export default function Profile() {
     fetchUser();
   }, [username])
 */
-  useEffect(() => {
-      const stored = localStorage.getItem('user');
-      if (stored) {
-      setUser(JSON.parse(stored));
+ useEffect(() => {
+  async function fetchUser() {
+      try {
+        const res = await fetch("http://localhost:5050/api/me", {
+          credentials: "include",       // required for session cookies
+        });
+
+        if (!res.ok) {
+          setUser(null);
+        } else {
+          const data = await res.json();
+          setUser(data.user);           // backend should send { user: {...} }
+        }
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      } finally {
+        setLoading(false);
+      }
     }
-    setLoading(false);
-  }, [id]);
+
+    fetchUser();
+  }, []); 
 /*
   useEffect(() => {
     const fakeUser = { name: "Josie Bruin", email: "josieBruin@ucla.edu" };
