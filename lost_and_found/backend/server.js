@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
@@ -8,10 +9,23 @@ import { fileURLToPath } from "url";
 const app = express();
 
 // Enable Cross-Origin Resource Sharing so frontend can talk to backend
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5178", // your frontend
+  credentials: true               //  allow cookies
+}));
 
 // Parses req.body's json to javascript object
 app.use(express.json());
+
+app.use(session({
+  secret: "h&gsk3!k023-9Afw",   // any random string
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60, // 1 hour
+  }
+}));
 
 // For user authentification (login/signup/...)
 // For any request that starts with /api/auth, use the router defined in authRoutes.js

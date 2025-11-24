@@ -26,10 +26,16 @@ const router = express.Router();
 
 // Create a new post
 router.post("/", upload.single("image"), (req, res) => {
-  const { user_id, post_type, title, description, category, address, contact} = req.body;
+  // if user not logged in, return 401 error
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
+  }
+  // Get actual user id from session
+  const userId = req.session.user.id;
+  const {post_type, title, description, category, address, contact} = req.body;
   const imagePath = req.file ? `uploads/${req.file.filename}` : null;
 
-  createPost(user_id, post_type, title, description, category, address, contact, (err, result) => {
+  createPost(userId, post_type, title, description, category, address, contact, (err, result) => {
     if (err) {
       console.error("Error creating post:", err);
       return res.status(500).json({ message: "Failed to create post" });

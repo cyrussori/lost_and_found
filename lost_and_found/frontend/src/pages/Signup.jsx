@@ -18,7 +18,7 @@ export default function Signup() {
     e.preventDefault(); // prevents refresh
     setErr(null);
     setLoading(true);
-    if (!signup.name) {
+    if (!signupData.name) {
       setErr('Name is required');
       setLoading(false);
       return;
@@ -69,11 +69,11 @@ export default function Signup() {
         <h1>Lost & Found</h1>
         <p>Sign up to continue</p>
         <form className="loginForm" action="" onSubmit={handleSubmit}>
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input type="text" id="email" name="email" placeholder="Enter your email" onChange={onChange}></input>
-          <label for="name">Full name</label>
+          <label htmlFor="name">Full name</label>
           <input type="text" id="name" name="name" placeholder="Enter full name" onChange={onChange}></input>
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input type="password" id="password" name="password" placeholder="Enter your password" onChange={onChange}></input>
           {err && (
             <div className="errorMessage">{err}</div>

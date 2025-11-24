@@ -6,6 +6,7 @@ export async function login({ email, password }) {
         const response = await fetch(`${API_BASE}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ email, password })
         });
         // check if http error status code
@@ -26,6 +27,7 @@ export async function signup({ name, email, password }) {
         const response = await fetch(`${API_BASE}/auth/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ name, email, password })
         });
         // check if http error status code 
