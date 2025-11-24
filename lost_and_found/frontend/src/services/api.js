@@ -59,6 +59,7 @@ export async function createPost(postData) {
         const response = await fetch(`${API_BASE}/posts`, {
             method: 'POST',
             body: postData,
+            credentials: 'include'
         });
         if (!response.ok) throw new Error(`HTTP error; status: ${response.status}`);
         return await response.json();
