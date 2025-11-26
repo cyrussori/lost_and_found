@@ -75,6 +75,20 @@ body {
   cursor: pointer;
   border-radius: 10px;
   font-size: 17px;
+  padding: 10px 24px;
+}
+.btnStyle:hover {
+  background-color: #5078b3;
+}
+.btnCancel {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: 17px;
+}
+.btnCancel:hover{
+  background-color: #f0f0f0;
 }
 
 .linkBar .btnStyle {
