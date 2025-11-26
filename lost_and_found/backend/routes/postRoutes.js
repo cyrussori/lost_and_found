@@ -65,16 +65,6 @@ router.get("/", (req, res) => {
   });
 });
 
-// Get one post by post id 
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  getPostById(id, (err, results) => {
-    if (err) return res.status(500).json({ message: "Error fetching post" });
-    if (results.length === 0) return res.status(404).json({ message: "Post not found" });
-    res.json(results[0]);
-  });
-});
-
 // Get post by post type (Lost/Found)
 router.get("/type/:type", (req, res) => {
     const {type} = req.params;
@@ -91,6 +81,29 @@ router.get("/user/:userid", (req, res) => {
         if (err) return res.status(500).json({ message: "Error fetching posts by user"});
         res.json(results);
     });
+});
+
+// Get posts for current user.
+router.get("/me", (req, res) => {
+  // if user not logged in, return 401 error
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
+  }
+  const userId = req.session.user.id;
+  getPostsByUserId(userId, (err, results) => {
+      if (err) return res.status(500).json({ message: "Error fetching posts by user"});
+      res.json(results);
+  });
+});
+
+// Get one post by post id 
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  getPostById(id, (err, results) => {
+    if (err) return res.status(500).json({ message: "Error fetching post" });
+    if (results.length === 0) return res.status(404).json({ message: "Post not found" });
+    res.json(results[0]);
+  });
 });
 
 // Update a post by post id
