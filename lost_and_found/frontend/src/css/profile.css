@@ -11,8 +11,9 @@
 .profileWrapper {
   display: flex;
   align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .profileCard {
@@ -22,7 +23,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   width: 640px;
-  height: calc(100vh);
+  min-height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
 }
