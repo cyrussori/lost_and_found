@@ -12,6 +12,7 @@ export default function Browse({ posts }) {
   return (
     <>
       {/*Header*/}
+      <div className="browseContent">
       <div className="browseHWrapper">
         <div className="browseHeader">
           <button onClick={() => setFilterType("all")}>All</button>
@@ -24,6 +25,7 @@ export default function Browse({ posts }) {
         {filteredFeed.map((post) => (
           <CardPost key={post._id} post={post} />
         ))}
+      </div>
       </div>
     </>
   );

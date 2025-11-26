@@ -1,3 +1,7 @@
+.browseContent {
+  margin-left: 200px;
+}
+
 .browseHWrapper {
   display: flex;
   justify-content: center;

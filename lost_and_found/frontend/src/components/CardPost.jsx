@@ -11,11 +11,10 @@ export default function CardPost({ post }) {
           <em>{post.address}</em>
         </p>
         {post.file_path && (
-          <img
+          <img className="postImage"
             // The src now points to the full URL where the backend serves the image
             src={`http://localhost:5050/${post.file_path}`} 
             alt="Lost item"
-            style={{ width: "100%", borderRadius: "8px", marginTop: "10px" }}
           />
         )}
       </div>
