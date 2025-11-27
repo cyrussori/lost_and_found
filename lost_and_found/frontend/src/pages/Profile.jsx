@@ -57,6 +57,7 @@ export default function Profile() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
   const [currTab, setCurrTab] = useState("posts");
+  const [resolved, setResolved] = useState(false);
   //const { id } = useParams();
 /*
   useEffect(() => {
@@ -166,7 +167,7 @@ export default function Profile() {
                 <p>Report a Lost/Found item</p>
               ) : (
                 posts.map((post) => (
-                  <CardPost key={post._id} post={post} viewMode="column"/>
+                  <CardPost key={post._id} post={post} viewMode="column" isAccountOwner={true} isResolved={() => setResolved(true)}/>
                 ))
               )}
               </>

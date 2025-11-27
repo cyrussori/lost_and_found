@@ -82,3 +82,12 @@ export async function createPost(postData) {
         return null;
     }
 }
+
+export async function markResolved(post) {
+        const response = await fetch(`${API_BASE}/posts/${post}/resolve`, {
+            method: 'PUT',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error; status: ${response.status}`);
+        return await response.json();
+}
