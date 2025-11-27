@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { API_BASE } from "../services/api";
+import { API_BASE, markResolved } from "../services/api";
 import CardPost from "../components/CardPost";
 import axios from "axios";
 
@@ -52,12 +52,10 @@ export default function Profile() {
   );
 }*/
 
-export default function Profile() {
+export default function Profile({ posts, setPosts }) {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const [posts, setPosts] = useState([]);
   const [currTab, setCurrTab] = useState("posts");
-  const [resolved, setResolved] = useState(false);
   //const { id } = useParams();
 /*
   useEffect(() => {
@@ -99,29 +97,8 @@ export default function Profile() {
     fetchUser();
   }, []); 
 
-  useEffect(() => {
-    if (!user) return;
-    if (currTab !== "posts") return;
-    async function fetchUserPosts() {
-        try {
-          const res = await fetch(`${API_BASE}/posts/me`, {
-            method: "GET",
-            credentials: "include",       // required for session cookies
-          });
+  const profilePosts = user ? posts.filter(p => p.user_id === user.id) : [];
 
-          if (!res.ok) {
-            console.error("Failed loading posts", res.status);
-            return;
-          } else {
-            const data = await res.json();
-            setPosts(data);           
-          }
-        } catch (err) {
-          console.error("Error fetching user posts:", err);
-        }
-      }
-    fetchUserPosts();
-}, [user, currTab]); 
 /*
   useEffect(() => {
     const fakeUser = { name: "Josie Bruin", email: "josieBruin@ucla.edu" };
@@ -131,6 +108,14 @@ export default function Profile() {
     }, 500);
   }, []);
 */
+
+  const handleResolved = async (postId) => {
+    await markResolved(postId);
+    setPosts(prev => 
+      prev.map(p => p.id === postId ? { ...p, resolved: 1 } : p)
+    );
+  };
+
   return (
     <>
       <div className="headerWrapper">
@@ -163,11 +148,11 @@ export default function Profile() {
             <div className="postsWrapper">
             {currTab === "posts" && (
               <>
-              {posts.length === 0 ? (
+              {profilePosts.length === 0 ? (
                 <p>Report a Lost/Found item</p>
               ) : (
-                posts.map((post) => (
-                  <CardPost key={post._id} post={post} viewMode="column" isAccountOwner={true} isResolved={() => setResolved(true)}/>
+                profilePosts.map((post) => (
+                  <CardPost key={post._id} post={post} viewMode="column" isAccountOwner={true} onResolved={handleResolved}/>
                 ))
               )}
               </>
