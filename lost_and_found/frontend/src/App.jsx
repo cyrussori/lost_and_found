@@ -8,7 +8,6 @@ import Search from "./pages/Search";
 import Layout from "./layouts/Layout";
 import { getPosts } from "./services/api";
 import { useState, useEffect } from "react";
-import ViewedProfile from "./pages/ViewedProfile";
 
 export default function App() {
   const [posts, setPosts] = useState([]);
@@ -22,8 +21,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route element={<Layout setPosts={setPosts}/>}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/:id" element={<ViewedProfile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/browse" element={<Browse posts={posts}/>} />
           <Route path="/search" element={<Search />} />
         </Route>
