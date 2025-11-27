@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createPost, getPosts } from "../services/api"
+import { createPost, getPostById } from "../services/api"
 import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
 import Card from "../components/Card";
@@ -10,7 +10,9 @@ export default function Layout({ setPosts }) {
   const handlePost = async (formData) => {
     const newPost = await createPost(formData);
     if (newPost) {
-      setPosts(await getPosts());
+      const response = await getPostById(newPost.postId)
+      if (!response) return;
+      setPosts(prev => [response, ...prev]);
       setShowPost(false);
     }
   };

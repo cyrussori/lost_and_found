@@ -54,6 +54,17 @@ export async function getPosts() {
   }
 }
 
+export async function getPostById(id) {
+    try {
+        const response = await fetch(`${API_BASE}/posts/${id}`);
+        if (!response.ok) throw new Error(`HTTP error; status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching posts', error);
+        return null;
+    }
+}
+
 export async function getMyPosts() {
     try {
         const response = await fetch(`${API_BASE}/posts/me`, {
