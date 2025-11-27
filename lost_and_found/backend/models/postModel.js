@@ -22,17 +22,19 @@ export const createImage = (post_id, file_path, file_name, callback) => {
 };
 
 export const getAllPosts = (callback) => {
-  const sql = `SELECT p.*, i.file_path
+  const sql = `SELECT p.*, i.file_path, u.name AS user_name
     FROM Posts p
     LEFT JOIN images i ON p.id = i.post_id
+    LEFT JOIN users u ON p.user_id = u.id
     ORDER BY p.created_at DESC`;
   db.query(sql, callback);
 };
 
 export const getPostById = (id, callback) => {
-  const sql = `SELECT p.*, i.file_path
+  const sql = `SELECT p.*, i.file_path, u.name AS user_name
     FROM Posts p
     LEFT JOIN images i ON p.id = i.post_id 
+    LEFT JOIN users u ON p.user_id = u.id
     WHERE p.id = ?  
     ORDER BY p.created_at DESC`;
   db.query(sql, [id], callback);
@@ -48,9 +50,10 @@ export const getPostsByType = (post_type, callback) => {
 };
 
 export const getPostsByUserId = (user_id, callback) => {
-  const sql = `SELECT p.*, i.file_path
+  const sql = `SELECT p.*, i.file_path, u.name AS user_name
     FROM Posts p
     LEFT JOIN images i ON p.id = i.post_id 
+    LEFT JOIN users u ON p.user_id = u.id
     WHERE p.user_id = ? 
     ORDER BY p.created_at DESC`;
   db.query(sql, [user_id], callback);
