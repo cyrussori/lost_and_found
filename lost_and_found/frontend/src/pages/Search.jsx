@@ -1,36 +1,35 @@
 import { useState, useEffect } from "react";
 import CardPost from "../components/CardPost";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
-import { getPosts } from "../services/api.js";
+import { markResolved } from "../services/api.js";
 
-export default function Search() {
-  const [feed, setFeed] = useState([]);
+export default function Search({ posts, setAllPosts }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFeed, setFilteredFeed] = useState([]);
   const [typeFilter, setTypeFilter] = useState("");
-  // Fetch posts
-  useEffect(() => {
-    async function fetchPosts() {
-      const posts = await getPosts();
-      setFeed(posts);
-      setFilteredFeed(posts);
-    }
-    fetchPosts();
-  }, []);
 
   // Filter posts by search term and type
   useEffect(() => {
     const lower = searchTerm.toLowerCase();
     setFilteredFeed(
-      feed.filter((post) => {
+      posts.filter((post) => {
         const matchesSearch =
           post.title.toLowerCase().includes(lower) ||
           post.description.toLowerCase().includes(lower);
-        const matchesType = typeFilter ? post.type === typeFilter : true;
+        const matchesType = typeFilter ? post.post_type.toLowerCase() === typeFilter : true;
         return matchesSearch && matchesType;
       })
     );
-  }, [searchTerm, typeFilter, feed]);
+  }, [searchTerm, typeFilter, posts]);
+
+  const handleResolved = async (postId) => {
+    await markResolved(postId);
+    // App.jsx owns posts so we must set the array that App
+    // owns to resolved too. 
+    setAllPosts(prev => 
+      prev.map(p => p.id === postId ? { ...p, resolved: 1 } : p)
+    );
+  };
 
   return (
     <>
@@ -63,7 +62,7 @@ export default function Search() {
           {filteredFeed.length === 0 ? (
             <div>No posts found</div>
           ) : (
-            filteredFeed.map((post) => <CardPost key={post.id} post={post} viewMode="card"/>)
+            filteredFeed.map((post) => <CardPost key={post.id} post={post} viewMode="card" onResolved={handleResolved}/>)
           )}
         </div>
       </div>
