@@ -1,13 +1,21 @@
 import { useState, useEffect } from "react";
 import CardPost from "../components/CardPost";
+import { markResolved } from "../services/api"
 
-export default function Browse({ posts }) {
+export default function Browse({ posts, setPosts }) {
   const [filterType, setFilterType] = useState("all");
 
   const filteredFeed =
     filterType === "all"
       ? posts
       : posts.filter((post) => post.post_type === filterType);
+  
+  const handleResolved = async (postId) => {
+    await markResolved(postId);
+    setPosts(prev => 
+      prev.map(p => p.id === postId ? { ...p, resolved: 1 } : p)
+    );
+  };
 
   return (
     <>
@@ -23,7 +31,7 @@ export default function Browse({ posts }) {
 
       <div className="browseWrapper">
         {filteredFeed.map((post) => (
-          <CardPost key={post._id} post={post} viewMode="card"/>
+          <CardPost key={post._id} post={post} viewMode="card" isAccountOwner={false} onResolved={handleResolved}/>
         ))}
       </div>
       </div>
