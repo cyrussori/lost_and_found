@@ -166,7 +166,7 @@ export default function Profile() {
                 <p>Report a Lost/Found item</p>
               ) : (
                 posts.map((post) => (
-                  <CardPost key={post._id} post={post} />
+                  <CardPost key={post._id} post={post} viewMode="column"/>
                 ))
               )}
               </>

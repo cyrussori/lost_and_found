@@ -76,7 +76,6 @@
 .colWrapper {
     margin-top: 10px;
     border-top: 1px solid var(--dark-blue);
-    border-bottom: 1px solid var(--dark-blue);
     padding: 0 16px;
     width: 550px;
 }

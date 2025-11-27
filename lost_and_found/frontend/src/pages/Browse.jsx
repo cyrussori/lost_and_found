@@ -23,7 +23,7 @@ export default function Browse({ posts }) {
 
       <div className="browseWrapper">
         {filteredFeed.map((post) => (
-          <CardPost key={post._id} post={post} />
+          <CardPost key={post._id} post={post} viewMode="card"/>
         ))}
       </div>
       </div>

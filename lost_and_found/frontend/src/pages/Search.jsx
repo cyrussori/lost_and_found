@@ -63,7 +63,7 @@ export default function Search() {
           {filteredFeed.length === 0 ? (
             <div>No posts found</div>
           ) : (
-            filteredFeed.map((post) => <CardPost key={post.id} post={post} />)
+            filteredFeed.map((post) => <CardPost key={post.id} post={post} viewMode="card"/>)
           )}
         </div>
       </div>
