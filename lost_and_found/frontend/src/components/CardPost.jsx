@@ -1,6 +1,7 @@
 import { ReactComponent as LocIcon } from '../images/loc.svg'
 import { ReactComponent as RepIcon } from '../images/reply.svg'
 import { ReactComponent as ViewIcon } from '../images/view.svg'
+import { Link } from "react-router-dom";
 
 export default function CardPost({ post, viewMode = "column" }) {
   const timeAgo = "2h";
@@ -12,7 +13,7 @@ export default function CardPost({ post, viewMode = "column" }) {
           <div className="userInfo">
             <div className="avatar" />
             <div>
-              <div className="userName">temp</div>
+              <div className="userName"><Link to={`/profile/${post.user_id}`} className="profileLink">{post.user_name}</Link></div>
               <div className="timeStamp">· {timeAgo}</div>
             </div>
           </div>
