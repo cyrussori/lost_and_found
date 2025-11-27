@@ -10,10 +10,13 @@ import { getPosts } from "./services/api";
 import { useState, useEffect } from "react";
 
 export default function App() {
+  //App owns posts so it is shared across the application.
+  //Any changes to posts will be reflected in the pages.
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     getPosts().then(data => setPosts(data));
   },[]);
+
   return (
     <Router>
       <Routes>
@@ -21,9 +24,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route element={<Layout setPosts={setPosts}/>}>
-          <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/browse" element={<Browse posts={posts}/>} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/profile/:id" element={<Profile posts={posts} setPosts={setPosts}/>} />
+          <Route path="/browse" element={<Browse posts={posts} setPosts={setPosts}/>} />
+          <Route path="/search" element={<Search posts={posts} setAllPosts={setPosts}/>} />
         </Route>
       </Routes>
     </Router>
