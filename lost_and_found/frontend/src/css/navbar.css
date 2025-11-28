@@ -8,11 +8,13 @@
   padding: 20px 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .navbar-header {
-  padding: 0 20px 0;
+  padding: 0 10px 0;
   color: white;
+  cursor: pointer
 }
 
 .navbar-header h2 {
@@ -28,7 +30,9 @@
   flex-direction: column;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 80px;
+  margin-top:auto;
+  margin-bottom: auto;
+  flex: unset;
 }
 
 .navbar-links a {

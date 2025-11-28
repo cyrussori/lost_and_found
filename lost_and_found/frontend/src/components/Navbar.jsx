@@ -20,6 +20,10 @@ export default function Navbar({ onPostClick }) {
   return (
     <nav className="navbar">
       <ul className="navbar-links">
+        <div className="navbar-header" onClick={() => navigate("/")}>
+          <h2>Lost & Found</h2>
+        </div>
+        <ul className="navbar-links"></ul>
         {/* Browse */}
         <li>
           <button
