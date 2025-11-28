@@ -7,6 +7,7 @@ export default function Search({ posts, setAllPosts }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFeed, setFilteredFeed] = useState([]);
   const [typeFilter, setTypeFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
 
   // Filter posts by search term and type
   useEffect(() => {
@@ -16,7 +17,9 @@ export default function Search({ posts, setAllPosts }) {
         const matchesSearch =
           post.title.toLowerCase().includes(lower) ||
           post.description.toLowerCase().includes(lower);
-        const matchesType = typeFilter ? post.post_type.toLowerCase() === typeFilter : true;
+        const matchesType = typeFilter
+          ? post.post_type.toLowerCase() === typeFilter
+          : true;
         return matchesSearch && matchesType;
       })
     );
@@ -25,9 +28,9 @@ export default function Search({ posts, setAllPosts }) {
   const handleResolved = async (postId) => {
     await markResolved(postId);
     // App.jsx owns posts so we must set the array that App
-    // owns to resolved too. 
-    setAllPosts(prev => 
-      prev.map(p => p.id === postId ? { ...p, resolved: 1 } : p)
+    // owns to resolved too.
+    setAllPosts((prev) =>
+      prev.map((p) => (p.id === postId ? { ...p, resolved: 1 } : p))
     );
   };
 
@@ -41,8 +44,23 @@ export default function Search({ posts, setAllPosts }) {
             onChange={(e) => setTypeFilter(e.target.value)}
           >
             <option value="">All Types</option>
-            <option value="lost">Lost</option>
-            <option value="found">Found</option>
+            <option value="Lost">Lost</option>
+            <option value="Found">Found</option>
+          </select>
+
+          {/* Category filter */}
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <option value="">Select category</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothes">Clothes</option>
+            <option value="Bottle">Bottle</option>
+            <option value="Keys">Keys</option>
+            <option value="Bag">Bag</option>
+            <option value="Wallet">Wallet</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 
@@ -62,7 +80,14 @@ export default function Search({ posts, setAllPosts }) {
           {filteredFeed.length === 0 ? (
             <div>No posts found</div>
           ) : (
-            filteredFeed.map((post) => <CardPost key={post.id} post={post} viewMode="card" onResolved={handleResolved}/>)
+            filteredFeed.map((post) => (
+              <CardPost
+                key={post.id}
+                post={post}
+                viewMode="card"
+                onResolved={handleResolved}
+              />
+            ))
           )}
         </div>
       </div>

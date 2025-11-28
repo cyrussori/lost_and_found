@@ -10,29 +10,29 @@ const mockPosts = [
     id: 1,
     title: "Lost Phone",
     description: "Black iPhone",
-    type: "lost",
-    category: "electronics",
+    type: "Lost",
+    category: "Electronics",
   },
   {
     id: 2,
     title: "Found Wallet",
     description: "Leather wallet",
-    type: "found",
-    category: "accessories",
+    type: "Found",
+    category: "Wallet",
   },
   {
     id: 3,
     title: "Lost Jacket",
     description: "Blue jacket",
-    type: "lost",
-    category: "clothes",
+    type: "Lost",
+    category: "Clothes",
   },
   {
     id: 4,
     title: "Found Keys",
     description: "Set of keys",
-    type: "found",
-    category: "other",
+    type: "Found",
+    category: "Keys",
   },
 ];
 
@@ -83,12 +83,27 @@ describe("Search page", () => {
   // Test 4: filters correct by lost / found type
   it("filters posts by type", async () => {
     const typeSelect = screen.getAllByRole("combobox")[0];
-    fireEvent.change(typeSelect, { target: { value: "found" } });
+    fireEvent.change(typeSelect, { target: { value: "Found" } });
 
     await waitFor(() => {
       expect(screen.getByText("Found Wallet")).toBeInTheDocument();
       expect(screen.getByText("Found Keys")).toBeInTheDocument();
       expect(screen.queryByText("Lost Phone")).not.toBeInTheDocument();
+    });
+  });
+
+  // Test 5: filters posts by category
+  it("filters posts by category", async () => {
+    const selects = await screen.findAllByRole("combobox");
+    const categorySelect = selects[1];
+
+    fireEvent.change(categorySelect, {
+      target: { value: "Electronics" },
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText("Lost Phone")).toBeInTheDocument();
+      expect(screen.queryByText("Lost Jacket")).not.toBeInTheDocument();
     });
   });
 });
