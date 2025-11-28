@@ -42,7 +42,7 @@ export default function Navbar({ onPostClick }) {
 
         {/* Post */}
         <li>
-          <button onClick={onPostClick}>
+          <button className="icon-button" onClick={onPostClick}>
             <PostIcon width={40} height={40} />
           </button>
         </li>

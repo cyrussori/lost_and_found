@@ -3,7 +3,12 @@ import { Outlet } from "react-router-dom";
 import Card from "../components/Card";
 import { createPost, getPostById } from "../services/api";
 
-export default function Layout({ cardOpen, setCardOpen, setPosts }) {
+export default function Layout({
+  cardOpen,
+  setCardOpen,
+  setPosts,
+  onPostClick,
+}) {
   const handlePost = async (formData) => {
     const newPost = await createPost(formData);
     if (!newPost) return;
@@ -17,7 +22,7 @@ export default function Layout({ cardOpen, setCardOpen, setPosts }) {
 
   return (
     <>
-      <Navbar onPostClick={() => setCardOpen(true)} />
+      <Navbar onPostClick={onPostClick} />
 
       {cardOpen && (
         <Card onClose={() => setCardOpen(false)} onReport={handlePost} />

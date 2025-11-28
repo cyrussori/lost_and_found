@@ -20,7 +20,6 @@ export default function AppRoutes() {
     getPosts().then((data) => setPosts(data));
   }, []);
 
-  // ✅ 统一的 post 点击权限判断
   const handlePostClick = () => {
     const userId = localStorage.getItem("userId");
     if (!userId) {
@@ -30,20 +29,16 @@ export default function AppRoutes() {
     setCardOpen(true);
   };
 
-  const handleReport = () => {
-    setCardOpen(false);
-  };
-
   return (
     <Routes>
       <Route
         path="/"
         element={
           <Welcome
-            onPostClick={handlePostClick}
             cardOpen={cardOpen}
             setCardOpen={setCardOpen}
-            onReport={handleReport}
+            setPosts={setPosts}
+            onPostClick={handlePostClick}
           />
         }
       />
@@ -57,6 +52,7 @@ export default function AppRoutes() {
             cardOpen={cardOpen}
             setCardOpen={setCardOpen}
             setPosts={setPosts}
+            onPostClick={handlePostClick}
           />
         }
       >
