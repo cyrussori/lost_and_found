@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Browse from "./pages/Browse";
 import Search from "./pages/Search";
+import UserPost from "./pages/UserPost";
 import Layout from "./layouts/Layout";
 import { getPosts, fetchMe } from "./services/api";
 
@@ -79,6 +80,10 @@ export default function AppRoutes() {
         <Route
           path="/profile/:id"
           element={<Profile posts={posts} setPosts={setPosts} />}
+        />
+        <Route
+          path="/posts/:postId"
+          element={<UserPost/>}
         />
       </Route>
     </Routes>
