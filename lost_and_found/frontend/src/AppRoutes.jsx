@@ -26,6 +26,7 @@ export default function AppRoutes() {
     async function loadUser() {
       const user = await fetchMe();
       setCurrentUser(user);
+      console.log("Current user set");
     }
   
     loadUser();
@@ -53,7 +54,7 @@ export default function AppRoutes() {
         }
       />
 
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
       <Route path="/signup" element={<Signup />} />
 
       <Route
