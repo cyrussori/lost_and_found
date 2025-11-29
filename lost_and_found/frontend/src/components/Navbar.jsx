@@ -3,17 +3,28 @@ import { ReactComponent as HomeIcon } from "../images/home.svg";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
 import { ReactComponent as PostIcon } from "../images/post.svg";
 import { ReactComponent as ProfileIcon } from "../images/profile.svg";
+import { useState, useEffect } from "react";
+import { fetchMe } from "../services/api.js";
 
 export default function Navbar({ onPostClick }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    async function loadUser() {
+      const user = await fetchMe();
+      setCurrentUser(user);
+    }
+
+    loadUser();
+  }, []);
 
   const handleProfileClick = () => {
-    if (!userId) {
+    if (!currentUser) {
       navigate("/login");
     } else {
-      navigate(`/profile/${userId}`);
+      navigate(`/profile/${currentUser.id}`);
     }
   };
 

@@ -102,3 +102,20 @@ export async function markResolved(post) {
         if (!response.ok) throw new Error(`HTTP error; status: ${response.status}`);
         return await response.json();
 }
+
+export async function fetchMe() {
+  try {
+    const res = await fetch(`${API_BASE}/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return data.user;
+  } catch (err) {
+    console.error("Error fetching /me:", err);
+    return null;
+  }
+}
