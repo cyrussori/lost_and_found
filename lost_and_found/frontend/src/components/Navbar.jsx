@@ -49,7 +49,7 @@ export default function Navbar({ onPostClick }) {
 
         {/* Profile */}
         <li>
-          <button onClick={handleProfileClick}>
+          <button className={location.pathname.startsWith("/profile") ? "active" : ""} onClick={handleProfileClick}>
             <ProfileIcon width={40} height={40} />
           </button>
         </li>

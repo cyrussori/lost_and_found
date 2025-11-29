@@ -92,3 +92,11 @@
   justify-content: center;
   cursor: pointer;
 }
+
+.navbar-links button:hover,
+.navbar-links button.active {
+  background-color: #6ea3d7;
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
+}
