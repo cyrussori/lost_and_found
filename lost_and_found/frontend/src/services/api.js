@@ -119,3 +119,17 @@ export async function fetchMe() {
     return null;
   }
 }
+
+export async function deletePost() {
+  try {
+    const response = await fetch(`${API_BASE}/posts/${postId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (!response.ok) throw new Error("Deletion unsuccessful");
+    return response.json();
+  } catch (err) {
+    console.error("Error deleting post:", err);
+    return null;
+  }
+}
