@@ -13,7 +13,7 @@ export default function Browse({ posts, setPosts }) {
   const handleResolved = async (postId) => {
     await markResolved(postId);
     setPosts(prev => 
-      prev.map(p => p.id === postId ? { ...p, resolved: 1 } : p)
+      prev.map(p => p.id === postId ? { ...p, status: "Resolved" } : p)
     );
   };
 

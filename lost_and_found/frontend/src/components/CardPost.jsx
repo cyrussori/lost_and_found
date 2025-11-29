@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 export default function CardPost({ post, viewMode = "column", isAccountOwner = false, onResolved, clickable = true}) {
   const timeAgo = "2h";
-  const isResolved = post.resolved === 1 || post.resolved === true;
+  const isResolved = post.status === "Resolved" || post.resolved === 1 || post.resolved === true;
   const mode = viewMode === "card" ? "cardPostCard" : "cardPostCol";
   const nav = useNavigate();  
   const handleResolved = async () => {
