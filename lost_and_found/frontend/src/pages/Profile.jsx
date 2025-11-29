@@ -136,12 +136,10 @@ export default function Profile({ posts, setPosts }) {
               <button className="editProfileBtn">Edit profile</button>
               <div className="colWrapper">
                 <div className="colBtns">
-                  <button className={currTab === "posts" ? "currTab" : "" }
+                  <button className={currTab === "posts" ? "tab active" : "tab" }
                   onClick={() => setCurrTab("posts")}>Posts</button>
-                  <button className={currTab === "replies" ? "replies" : "" }
+                  <button className={currTab === "replies" ? "tab active" : "tab" }
                   onClick={() => setCurrTab("replies")}>Replies</button>
-                  <button className={currTab === "temp" ? "temp" : "" }
-                  onClick={() => setCurrTab("temp")}>IDK</button>
                 </div>
               </div>
             </div>
