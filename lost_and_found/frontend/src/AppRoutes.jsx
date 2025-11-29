@@ -8,9 +8,10 @@ import Profile from "./pages/Profile";
 import Browse from "./pages/Browse";
 import Search from "./pages/Search";
 import Layout from "./layouts/Layout";
-import { getPosts } from "./services/api";
+import { getPosts, fetchMe } from "./services/api";
 
 export default function AppRoutes() {
+  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
@@ -20,9 +21,18 @@ export default function AppRoutes() {
     getPosts().then((data) => setPosts(data));
   }, []);
 
+  // Load current user from session
+  useEffect(() => {
+    async function loadUser() {
+      const user = await fetchMe();
+      setCurrentUser(user);
+    }
+  
+    loadUser();
+  }, []);
+
   const handlePostClick = () => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
+    if (!currentUser) {
       navigate("/login");
       return;
     }
@@ -49,6 +59,7 @@ export default function AppRoutes() {
       <Route
         element={
           <Layout
+            currentUser={currentUser}
             cardOpen={cardOpen}
             setCardOpen={setCardOpen}
             setPosts={setPosts}

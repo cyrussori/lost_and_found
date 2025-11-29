@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import { createPost, getPostById } from "../services/api";
 
 export default function Layout({
+  currentUser,
   cardOpen,
   setCardOpen,
   setPosts,
@@ -22,7 +23,7 @@ export default function Layout({
 
   return (
     <>
-      <Navbar onPostClick={onPostClick} />
+      <Navbar currentUser={currentUser} onPostClick={onPostClick} />
 
       {cardOpen && (
         <Card onClose={() => setCardOpen(false)} onReport={handlePost} />
