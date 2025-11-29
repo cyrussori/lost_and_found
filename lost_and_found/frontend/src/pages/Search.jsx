@@ -20,7 +20,8 @@ export default function Search({ posts, setAllPosts }) {
         const matchesType = typeFilter
           ? post.post_type.toLowerCase() === typeFilter
           : true;
-        return matchesSearch && matchesType;
+        const notResolved = post.resolved !== 1 && post.resolved !== true;
+        return matchesSearch && matchesType && notResolved;
       })
     );
   }, [searchTerm, typeFilter, posts]);
