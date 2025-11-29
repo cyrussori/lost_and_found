@@ -2,19 +2,27 @@ import { ReactComponent as LocIcon } from '../images/loc.svg'
 import { ReactComponent as RepIcon } from '../images/reply.svg'
 import { ReactComponent as ViewIcon } from '../images/view.svg'
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-export default function CardPost({ post, viewMode = "column", isAccountOwner = false, onResolved}) {
+export default function CardPost({ post, viewMode = "column", isAccountOwner = false, onResolved, clickable = true}) {
   const timeAgo = "2h";
-  const isResolved = post.resolved === 1 || post.resolved === true;
+  const isResolved = post.status === "Resolved" || post.resolved === 1 || post.resolved === true;
   const mode = viewMode === "card" ? "cardPostCard" : "cardPostCol";
-
+  const nav = useNavigate();  
   const handleResolved = async () => {
       if (!onResolved) return;
       await onResolved(post.id);
   };
 
+  const handleClick = () => {
+    if(!clickable) return;
+    nav(`/posts/${post.id}`)
+  }
+
   return (
     <div className={`cardPost ${mode}`}>
+      <article className="post" onClick={handleClick}>
       <div className="cardStyle">
         <div className="cardHeader">
           <div className="userInfo">
@@ -47,17 +55,19 @@ export default function CardPost({ post, viewMode = "column", isAccountOwner = f
           </div>
         )}
         <div className="actionBar">
+          {
+            /*
           <button className="actionButton">
             <RepIcon className="repIcon" width={15} height={15}></RepIcon> Reply
           </button>
+            */
+          }
           {isAccountOwner && !isResolved && (
             <button className="actionButton returnedButton" onClick={handleResolved}>Mark as returned</button>
           )}
-          <button className="actionButton">
-            <ViewIcon className="viewIcon" width={15} height={15}></ViewIcon>
-          </button>
         </div>
       </div>
+      </article>
     </div>
   );
 }

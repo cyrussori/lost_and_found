@@ -20,7 +20,7 @@ export default function Search({ posts, setAllPosts }) {
         const matchesType = typeFilter
           ? post.post_type.toLowerCase() === typeFilter
           : true;
-        const notResolved = post.resolved !== 1 && post.resolved !== true;
+        const notResolved = post.status !== "Resolved" && post.resolved !== 1 && post.resolved !== true;
         return matchesSearch && matchesType && notResolved;
       })
     );
@@ -31,7 +31,7 @@ export default function Search({ posts, setAllPosts }) {
     // App.jsx owns posts so we must set the array that App
     // owns to resolved too.
     setAllPosts((prev) =>
-      prev.map((p) => (p.id === postId ? { ...p, resolved: 1 } : p))
+      prev.map((p) => (p.id === postId ? { ...p, status: "Resolved" } : p))
     );
   };
 
