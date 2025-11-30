@@ -18,13 +18,16 @@ export default function Search({ posts, setAllPosts }) {
           post.title.toLowerCase().includes(lower) ||
           post.description.toLowerCase().includes(lower);
         const matchesType = typeFilter
-          ? post.post_type.toLowerCase() === typeFilter
+          ? post.post_type.toLowerCase() === typeFilter.toLowerCase()
+          : true;
+        const matchesCategory = categoryFilter
+          ? post.category.toLowerCase() === categoryFilter.toLowerCase()
           : true;
         const notResolved = post.status !== "Resolved" && post.resolved !== 1 && post.resolved !== true;
-        return matchesSearch && matchesType && notResolved;
+        return matchesSearch && matchesType && matchesCategory && notResolved;
       })
     );
-  }, [searchTerm, typeFilter, posts]);
+  }, [searchTerm, typeFilter, categoryFilter, posts]);
 
   const handleResolved = async (postId) => {
     await markResolved(postId);
@@ -54,7 +57,7 @@ export default function Search({ posts, setAllPosts }) {
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
-            <option value="">Select category</option>
+            <option value="">All Categories</option>
             <option value="Electronics">Electronics</option>
             <option value="Clothes">Clothes</option>
             <option value="Bottle">Bottle</option>
