@@ -3,7 +3,7 @@ import { useState } from "react";
 import { login } from "../services/api.js";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ setCurrentUser }) {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [err, setErr] = useState(null); // TODO: Catch error thrown from api.js
   const [loading, setLoading] = useState(false);
@@ -27,11 +27,7 @@ export default function Login() {
       if (!userData?.user || !userData?.user.id) {
         throw new Error("Invalid res")
       }
-      /*
-      localStorage.setItem("token", userData.token);
-      localStorage.setItem("user", JSON.stringify(userData.user));  
-      localStorage.setItem("userId", String(userData.user.id))    
-      */
+      setCurrentUser(userData.user);
       nav(`/profile/${userData.user.id}`);
     } catch (error) {
       console.error("Erroneous data: ", error);

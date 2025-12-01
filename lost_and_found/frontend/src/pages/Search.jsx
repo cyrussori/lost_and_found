@@ -18,19 +18,23 @@ export default function Search({ posts, setAllPosts }) {
           post.title.toLowerCase().includes(lower) ||
           post.description.toLowerCase().includes(lower);
         const matchesType = typeFilter
-          ? post.post_type.toLowerCase() === typeFilter
+          ? post.post_type.toLowerCase() === typeFilter.toLowerCase()
           : true;
-        return matchesSearch && matchesType;
+        const matchesCategory = categoryFilter
+          ? post.category.toLowerCase() === categoryFilter.toLowerCase()
+          : true;
+        const notResolved = post.status !== "Resolved" && post.resolved !== 1 && post.resolved !== true;
+        return matchesSearch && matchesType && matchesCategory && notResolved;
       })
     );
-  }, [searchTerm, typeFilter, posts]);
+  }, [searchTerm, typeFilter, categoryFilter, posts]);
 
   const handleResolved = async (postId) => {
     await markResolved(postId);
     // App.jsx owns posts so we must set the array that App
     // owns to resolved too.
     setAllPosts((prev) =>
-      prev.map((p) => (p.id === postId ? { ...p, resolved: 1 } : p))
+      prev.map((p) => (p.id === postId ? { ...p, status: "Resolved" } : p))
     );
   };
 
@@ -53,7 +57,7 @@ export default function Search({ posts, setAllPosts }) {
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
-            <option value="">Select category</option>
+            <option value="">All Categories</option>
             <option value="Electronics">Electronics</option>
             <option value="Clothes">Clothes</option>
             <option value="Bottle">Bottle</option>

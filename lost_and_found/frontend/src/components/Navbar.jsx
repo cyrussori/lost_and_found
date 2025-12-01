@@ -4,16 +4,16 @@ import { ReactComponent as SearchIcon } from "../images/search.svg";
 import { ReactComponent as PostIcon } from "../images/post.svg";
 import { ReactComponent as ProfileIcon } from "../images/profile.svg";
 
-export default function Navbar({ onPostClick }) {
+
+export default function Navbar({ currentUser, onPostClick }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
-
+  
   const handleProfileClick = () => {
-    if (!userId) {
+    if (!currentUser) {
       navigate("/login");
     } else {
-      navigate(`/profile/${userId}`);
+      navigate(`/profile/${currentUser.id}`);
     }
   };
 
@@ -53,7 +53,7 @@ export default function Navbar({ onPostClick }) {
 
         {/* Profile */}
         <li>
-          <button onClick={handleProfileClick}>
+          <button className={location.pathname.startsWith("/profile") ? "active" : ""} onClick={handleProfileClick}>
             <ProfileIcon width={40} height={40} />
           </button>
         </li>

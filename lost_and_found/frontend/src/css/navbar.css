@@ -35,27 +35,25 @@
   flex: unset;
 }
 
-.navbar-links a {
+.navbar-links button {
+  all: unset;
+  width: 100%;
   display: flex;
   align-items: center;
-  padding: 15px 20px;
-  color: #ecf0f1;
-  transition: all 0.3s ease;
-  border-left: 3px solid transparent;
-}
-
-.navbar-links a:hover {
-  background-color: #6ea3d7;
+  justify-content: center;
+  cursor: pointer;
+  padding-top: 3px;
+  padding-bottom: 3px;
   border-radius: 20px;
-  width: 45px;
+  transition: background-color 0.3s ease, border-radius 0.3s ease, width 0.8s ease;
 }
 
-.navbar-links a.active, .brand {
+.navbar-links button:hover,
+.navbar-links button.active {
   background-color: #6ea3d7;
   color: white;
   font-weight: bold;
   border-radius: 20px;
-  width: 45px;
 }
 
 .icon {
@@ -88,11 +86,3 @@
   width: 45px;
 }
 
-.navbar button {
-  all: unset;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
