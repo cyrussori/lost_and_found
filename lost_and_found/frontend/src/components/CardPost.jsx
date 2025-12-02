@@ -49,9 +49,6 @@ export default function CardPost({
     setShowOptions(false);
   };
 
-  const onDelete = async (e) => {
-    const res = await deletePost()
-  };
 
   const fetchContact = async (e) => {
     e.stopPropagation();
