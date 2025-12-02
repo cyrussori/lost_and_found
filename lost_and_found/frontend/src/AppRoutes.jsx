@@ -77,24 +77,15 @@ export default function AppRoutes() {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <Welcome
-            cardOpen={cardOpen}
-            setCardOpen={setCardOpen}
-            setPosts={setPosts}
-            onPostClick={handlePostClick}
-          />
-        }
-      />
-
+      {/* 不需要 Layout 的页面 */}
+      <Route path="/" element={<Welcome />} />
       <Route
         path="/login"
         element={<Login setCurrentUser={setCurrentUser} />}
       />
       <Route path="/signup" element={<Signup />} />
 
+      {/* Layout 包裹的页面 */}
       <Route
         element={
           <Layout
@@ -122,7 +113,13 @@ export default function AppRoutes() {
         />
         <Route
           path="/profile/:id"
-          element={<Profile posts={posts} setPosts={setPosts} />}
+          element={
+            <Profile
+              currentUser={currentUser}
+              posts={posts}
+              setPosts={setPosts}
+            />
+          }
         />
         <Route path="/posts/:postId" element={<UserPost />} />
       </Route>
@@ -136,9 +133,7 @@ export default function AppRoutes() {
             <Browse
               posts={demoPosts}
               setPosts={(newPosts) => console.log("Updated posts:", newPosts)}
-              onResolved={(postId) => {
-                console.log("Resolved post:", postId);
-              }}
+              onResolved={(postId) => console.log("Resolved post:", postId)}
             />
           </div>
         }
