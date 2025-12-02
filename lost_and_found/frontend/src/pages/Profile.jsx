@@ -138,8 +138,6 @@ export default function Profile({ posts, setPosts }) {
                 <div className="colBtns">
                   <button className={currTab === "posts" ? "tab active" : "tab" }
                   onClick={() => setCurrTab("posts")}>Posts</button>
-                  <button className={currTab === "replies" ? "tab active" : "tab" }
-                  onClick={() => setCurrTab("replies")}>Replies</button>
                 </div>
               </div>
             </div>
@@ -154,12 +152,6 @@ export default function Profile({ posts, setPosts }) {
                 ))
               )}
               </>
-            )}
-            {currTab === "replies" && (
-              <p>Replies</p>
-            )}
-            {currTab === "temp" && (
-              <p>temp</p>
             )}
           </div>
           </div>

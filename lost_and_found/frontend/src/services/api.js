@@ -120,7 +120,7 @@ export async function fetchMe() {
   }
 }
 
-export async function deletePost() {
+export async function deletePost(postId) {
   try {
     const response = await fetch(`${API_BASE}/posts/${postId}`, {
       method: "DELETE",
