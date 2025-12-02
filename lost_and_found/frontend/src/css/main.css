@@ -1,149 +1,107 @@
+/* ============================= */
+/* Reset & Base */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #6089c0; /* dark blue */
+  color: #333;
+  scroll-behavior: smooth;
 }
 
-body {
-  font-family: 'Inter', sans-serif;
+a {
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ============================= */
+/* Variables */
+:root {
   --dark-blue: #6089c0;
   --light-yellow: #f4ec9a;
   --white: #f5f5ed;
-  background-color: var(--dark-blue);
+  --light-gray: #f0f0f0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-.wrapper {
-
-  background-color: var(--dark-blue);
-  /* Flexbox */
-  padding: 10px;
-  padding-left: 60px;
-  padding-right: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-/* Child combinator */
-.wrapper > div {
-  padding: 20px;
-  border-radius: 10px;
-  display:  flex;
-  gap: 20px;
-}
-
-.laf {
-  padding: 20px;
-  padding-left: 60px;
-  padding-right: 60px;
-  padding-bottom: 50px;
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--light-yellow);
-}
-
-.linkBar {
-  width: 400px;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-}
-
-.imagetemp {
-  display: flex;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background-color: #f4f3d2;
-  width: 440px;
-  height: 250px;
-  margin-bottom: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
-.laf > div > p {
-  font-size: 20px;
-  max-width: 300px;
-}
-
+/* ============================= */
+/* Buttons */
 .btnStyle {
   background-color: var(--dark-blue);
   border: none;
   color: var(--white);
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
   cursor: pointer;
   border-radius: 10px;
   font-size: 17px;
   padding: 10px 24px;
+  transition: background 0.3s ease;
 }
 .btnStyle:hover {
   background-color: #5078b3;
 }
-.btnCancel {
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px 24px;
-  font-size: 17px;
-}
-.btnCancel:hover{
-  background-color: #f0f0f0;
+
+/* ============================= */
+/* Welcome / Hero Page Scroll Snap */
+.welcomeScrollContainer {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
 }
 
-.linkBar .btnStyle {
-  padding: 10px 20px;
-}
-
-.laf .btnStyle {
-  padding: 15px 32px;
-  font-size: 17px;
-}
-
-.laf > div > h1 {
-  font-size: 40px;
-}
-
-.postbar {
-  background-color: #fff9e6;
-  padding: 10px;
-}
-
-.card {
-  position: fixed;
-  inset: 0;
+.welcomeScrollContainer section {
+  height: 100vh;
+  scroll-snap-align: start;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  z-index: 999;
+  justify-content: center;
+  padding: 0 60px;
 }
 
-.feed {
+/* Hero Section */
+.hero { background-color: var(--dark-blue); color: var(--white); }
+.wrapper { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+.linkBar { display: flex; gap: 20px; }
+.laf { display: flex; justify-content: space-between; align-items: center; flex: 1; }
+.lafText { max-width: 400px; }
+.lafText h1 { font-size: 48px; margin-bottom: 20px; }
+.lafText p { font-size: 20px; }
+.scrollArrow, .scrollDown { font-size: 40px; margin-top: 30px; cursor: pointer; animation: bounce 1.5s infinite; color: var(--light-yellow); }
+@keyframes bounce { 0%,20%,50%,80%,100%{transform:translateY(0);} 40%{transform:translateY(10px);} 60%{transform:translateY(5px);} }
+.imagetemp { display: flex; flex-shrink: 0; border-radius: 10px; background-color: #f4f3d2; width: 440px; height: 250px; align-items: center; justify-content: center; }
+
+/* Features Section */
+.features { background-color: var(--light-yellow); color: #333; text-align: center; }
+.features h2 { font-size: 36px; margin-bottom: 40px; }
+.featureCards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.featureCard { background-color: var(--white); border-radius: 15px; padding: 20px; width: 250px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+.featureCard:hover { transform: translateY(-5px); }
+.featureCard h3 { font-size: 20px; margin-bottom: 10px; }
+.featureCard p { font-size: 16px; }
+
+/* ============================= */
+.postPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 60px;
+  min-height: 100vh;
+  background-color: var(--light-yellow);
+}
+
+.postPage .feed {
   display: flex;
   flex-wrap: wrap;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-  gap: 20px; 
-  padding: 20px;
-  justify-content: space-between;
-  flex: 1;
-}
-
-/* Make form items display as one per line */
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* Make inputs stretch full width */
-.formContainer input,
-.formContainer textarea,
-.formContainer select {
-  margin: 0px;
+  justify-content: center;
+  gap: 20px;
   width: 100%;
-  padding: 5px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  max-width: 1200px;
+}
+
+.postPage .cardPost {
+  margin: 10px;
 }
