@@ -9,13 +9,14 @@ export default function CardPost({
   isAccountOwner = false,
   onResolved,
   clickable = true,
+  currentUser = null,
 }) {
   const [contact, setContact] = useState("");
   const [loadingContact, setLoadingContact] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const isResolved =
     post.status === "Resolved" || post.resolved === 1 || post.resolved === true;
-  const mode = viewMode === "card" ? "cardPostCard" : "cardPostCol"; 
+  const mode = viewMode === "card" ? "cardPostCard" : "cardPostCol";
   const nav = useNavigate();
   const [showOptions, setShowOptions] = useState(false);
 
@@ -25,8 +26,12 @@ export default function CardPost({
   };
 
   const handleClick = () => {
-    if(!clickable) return;
-    nav(`/posts/${post.id}`)
+    if (!clickable) return;
+    if (!currentUser) {
+      nav("/login");
+      return;
+    }
+    nav(`/posts/${post.id}`);
   };
 
   const handleMoreClick = (e) => {
@@ -34,7 +39,7 @@ export default function CardPost({
     if (isAccountOwner) {
       setShowOptions(true);
     }
-  }
+  };
 
   const handleDelete = async (e) => {
     e.stopPropagation();
@@ -42,13 +47,12 @@ export default function CardPost({
       deletePost(post.id);
       setShowOptions(false);
     }
-  }
+  };
 
   const closeOptions = (e) => {
     e.stopPropagation();
     setShowOptions(false);
   };
-
 
   const fetchContact = async (e) => {
     e.stopPropagation();
@@ -86,7 +90,9 @@ export default function CardPost({
                 </div>
               </div>
             </div>
-            <button className="moreButton" onClick={handleMoreClick}>⋯</button>
+            <button className="moreButton" onClick={handleMoreClick}>
+              ⋯
+            </button>
           </div>
 
           {isResolved ? (
@@ -104,27 +110,6 @@ export default function CardPost({
                 <span>{post.address}</span>
               </div>
             )}
-
-            {/* Show contact */}
-            <div className="contactSection">
-              <button
-                className="actionButton contactButton"
-                onClick={(e) => {
-                  if (contact) setShowContact(!showContact);
-                  else fetchContact(e);
-                }}
-              >
-                {loadingContact
-                  ? "Loading..."
-                  : showContact
-                  ? "Hide Contact"
-                  : "Show Contact"}
-              </button>
-
-              {showContact && contact && (
-                <p className="contactInfo">{contact}</p>
-              )}
-            </div>
           </div>
 
           {post.file_path && (
@@ -153,10 +138,16 @@ export default function CardPost({
         <div className="optionsWrapper" onClick={closeOptions}>
           <div className="options" onClick={(e) => e.stopPropagation()}>
             <h3>Post Options</h3>
-            <button className="optionButton deleteButton" onClick={handleDelete}>
+            <button
+              className="optionButton deleteButton"
+              onClick={handleDelete}
+            >
               Delete Report
             </button>
-            <button className="optionButton cancelButton" onClick={closeOptions}>
+            <button
+              className="optionButton cancelButton"
+              onClick={closeOptions}
+            >
               Cancel
             </button>
           </div>

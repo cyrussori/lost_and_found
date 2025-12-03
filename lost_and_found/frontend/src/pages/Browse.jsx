@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import CardPost from "../components/CardPost";
 import { markResolved } from "../services/api";
 
-export default function Browse({ posts, setPosts }) {
+export default function Browse({ posts, setPosts, currentUser }) {
   const [filterType, setFilterType] = useState("all");
 
   const demoPosts = [
@@ -69,6 +69,7 @@ export default function Browse({ posts, setPosts }) {
               viewMode="card"
               isAccountOwner={false}
               onResolved={handleResolved}
+              currentUser={currentUser}
             />
           ))}
         </div>

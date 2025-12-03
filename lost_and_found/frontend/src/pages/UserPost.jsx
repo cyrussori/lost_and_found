@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { getPostById } from "../services/api";
 import CardPost from "../components/CardPost";
 
-export default function UserPost() {
+export default function UserPost({ currentUser }) {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
 
- useEffect(() => {
-  async function fetchPost() {
+  useEffect(() => {
+    async function fetchPost() {
       try {
         const response = await getPostById(postId);
         setPost(response);
@@ -17,7 +17,7 @@ export default function UserPost() {
       }
     }
     fetchPost();
-  }, [postId]); 
+  }, [postId]);
 
   if (!post) return null;
 
@@ -26,12 +26,18 @@ export default function UserPost() {
       <div className="headerWrapper">
         <h4>Post</h4>
       </div>
-        <div className="profileWrapper">
-          <div className="profileCard">
-            <CardPost post={post} viewMode="column" isAccountOwner={false} clickable={false}/>
-            <p>Contact: {post.contact}</p>
-          </div>
+      <div className="profileWrapper">
+        <div className="profileCard">
+          <CardPost
+            post={post}
+            viewMode="column"
+            isAccountOwner={false}
+            clickable={false}
+            currentUser={currentUser}
+          />
+          <p>Contact: {post.contact}</p>
         </div>
+      </div>
     </>
   );
 }

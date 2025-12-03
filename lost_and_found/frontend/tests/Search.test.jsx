@@ -5,6 +5,7 @@ import Search from "../src/pages/Search";
 import * as api from "../src/services/api.js";
 
 // Mock data
+const mockCurrentUser = { id: 1, name: "Test User", email: "test@example.com" };
 const mockPosts = [
   {
     id: 1,
@@ -48,7 +49,11 @@ describe("Search page", () => {
 
     render(
       <MemoryRouter>
-        <Search posts={mockPosts} setAllPosts={setAllPosts} />
+        <Search
+          posts={mockPosts}
+          setAllPosts={setAllPosts}
+          currentUser={mockCurrentUser}
+        />
       </MemoryRouter>
     );
 

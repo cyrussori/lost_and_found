@@ -3,7 +3,7 @@ import CardPost from "../components/CardPost";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
 import { markResolved } from "../services/api.js";
 
-export default function Search({ posts, setAllPosts }) {
+export default function Search({ posts, setAllPosts, currentUser }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredFeed, setFilteredFeed] = useState([]);
   const [typeFilter, setTypeFilter] = useState("");
@@ -23,7 +23,10 @@ export default function Search({ posts, setAllPosts }) {
         const matchesCategory = categoryFilter
           ? post.category.toLowerCase() === categoryFilter.toLowerCase()
           : true;
-        const notResolved = post.status !== "Resolved" && post.resolved !== 1 && post.resolved !== true;
+        const notResolved =
+          post.status !== "Resolved" &&
+          post.resolved !== 1 &&
+          post.resolved !== true;
         return matchesSearch && matchesType && matchesCategory && notResolved;
       })
     );
@@ -90,6 +93,7 @@ export default function Search({ posts, setAllPosts }) {
                 post={post}
                 viewMode="card"
                 onResolved={handleResolved}
+                currentUser={currentUser}
               />
             ))
           )}
