@@ -1,3 +1,32 @@
+/* form for post */
+.card {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+}
+.formContainer input,
+.formContainer textarea,
+.formContainer select {
+  margin: 10px;
+  width: 100%;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-family: inherit;
+}
+.btnCancel {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: 17px;
+}
+.btnCancel:hover{
+  background-color: #f0f0f0;
+}
+
 .cardStyle {
   box-sizing: border-box;
   height: 100%;
