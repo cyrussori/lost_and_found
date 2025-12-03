@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import "../css/main.css";
+import logo from "../images/logo.png";
 
 export default function Welcome() {
   return (
     <div className="welcomeScrollContainer">
       <section className="hero">
         <div className="wrapper">
-          <h1>LOGO</h1>
+          <img src={logo} alt="Lost and Found Logo" className="siteLogo" /> 
           <div className="linkBar">
             <Link to="/login">
               <button className="btnStyle">Login</button>
@@ -19,11 +20,10 @@ export default function Welcome() {
 
         <div className="laf">
           <div className="lafText">
-            <h1>Lost and Found</h1>
-            <p>Join thousands of users finding their lost items every day.</p>
+            <h1>Join thousands of users finding their lost items every day.</h1>
+            <h1>Lost something? Found something? We help Bruin items find their way home.</h1>
             <div className="scrollArrow">&#x2193;</div>
           </div>
-          <div className="imagetemp">temp for img</div>
         </div>
       </section>
 
