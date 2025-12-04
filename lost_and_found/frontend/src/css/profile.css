@@ -34,12 +34,13 @@
 }
 
 .tempForImage {
-    background-color: gray;
-    width: 100px;
-    height: 100px;
     margin-right: 20px;
     border-radius: 50px;
     margin-top: 40px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .rightContactInfo {
