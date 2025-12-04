@@ -3,52 +3,44 @@ import session from "express-session";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import usersRouter from "./routes/users.js";   // ⭐ ADD THIS
 import path from "path";
+
 import { fileURLToPath } from "url";
 
 const app = express();
 
-// Enable Cross-Origin Resource Sharing so frontend can talk to backend
 app.use(cors({
-  origin: "http://localhost:5178", // your frontend
-  credentials: true               //  allow cookies
+  origin: "http://localhost:5178",
+  credentials: true
 }));
 
-// Parses req.body's json to javascript object
 app.use(express.json());
 
 app.use(session({
-  secret: "h&gsk3!k023-9Afw",   // any random string
+  secret: "h&gsk3!k023-9Afw",
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    maxAge: 1000 * 60 * 60, // 1 hour
+    maxAge: 1000 * 60 * 60,
   }
 }));
 
-// For user authentification (login/signup/...)
-// For any request that starts with /api/auth, use the router defined in authRoutes.js
+
 app.use("/api/auth", authRoutes);
-app.use("/api/posts", postRoutes)
-// Make the uploads folder publicly accessible, so that frontend can fetch the uploaded images
+app.use("/api/posts", postRoutes);
+app.use("/api/users", usersRouter);     // ⭐ MOUNT USERS ROUTES HERE
+
 app.use("/uploads", express.static("uploads"));
 
-// When someone requests http://localhost:5050/uploads/image.jpg, find the file in the backend uploads/ folder, and sends it to the browser
+// static setup
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename); // specifies absolute path to current directory
+const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const PORT = 5050;
 
-app.get('/api/me', async (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ message: "Not logged in" });
-  }
-  
-  res.json({ user: req.session.user });
-});
-
 app.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
+  console.log(`Server running on ${PORT}`);
 });

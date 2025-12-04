@@ -9,6 +9,7 @@ import Browse from "./pages/Browse";
 import Search from "./pages/Search";
 import UserPost from "./pages/UserPost";
 import Layout from "./layouts/Layout";
+import EditProfile from "./pages/EditProfile";
 import { getPosts, fetchMe, markResolved } from "./services/api";
 
 export default function AppRoutes() {
@@ -88,6 +89,10 @@ export default function AppRoutes() {
           />
         }
       />
+      <Route 
+        path="/edit-profile" 
+        element={<EditProfile currentUser={currentUser} />} 
+      />
 
       <Route
         path="/login"
@@ -135,6 +140,7 @@ export default function AppRoutes() {
           path="/posts/:postId"
           element={<UserPost currentUser={currentUser} />}
         />
+        
       </Route>
 
       {/* demo */}
@@ -151,7 +157,7 @@ export default function AppRoutes() {
               }}
             />
           </div>
-        }
+        }  
       />
     </Routes>
   );

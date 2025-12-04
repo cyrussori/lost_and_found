@@ -133,7 +133,9 @@ export default function Profile({ posts, setPosts }) {
               <div className="tempForImage"></div>
             </div>
             <div className="lowerCard">
-              <button className="editProfileBtn">Edit profile</button>
+              <Link to="/edit-profile">
+                <button className="editProfileBtn">Edit profile</button>
+              </Link>
               <div className="colWrapper">
                 <div className="colBtns">
                   <button className={currTab === "posts" ? "tab active" : "tab" }
