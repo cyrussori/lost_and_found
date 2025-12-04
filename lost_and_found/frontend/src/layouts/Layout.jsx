@@ -1,25 +1,35 @@
-import { useState } from "react";
-import { createPost, getPosts } from "../services/api"
 import Navbar from "../components/Navbar";
 import { Outlet } from "react-router-dom";
 import Card from "../components/Card";
+import { createPost, getPostById } from "../services/api";
 
-export default function Layout({ setPosts }) {
-  const [showPost, setShowPost] = useState(false);
-
+export default function Layout({
+  currentUser,
+  cardOpen,
+  setCardOpen,
+  setPosts,
+  onPostClick,
+}) {
   const handlePost = async (formData) => {
     const newPost = await createPost(formData);
-    if (newPost) {
-      setPosts(await getPosts());
-      setShowPost(false);
-    }
+    if (!newPost) return;
+
+    const response = await getPostById(newPost.postId);
+    if (!response) return;
+
+    setPosts((prev) => [response, ...prev]);
+    setCardOpen(false);
   };
 
   return (
     <>
-      <Navbar onPostClick={() => setShowPost(true)}/>
-      {showPost && <Card onClose={() => setShowPost(false)} onReport={handlePost} />}
-      <Outlet></Outlet>
+      <Navbar currentUser={currentUser} onPostClick={onPostClick} />
+
+      {cardOpen && (
+        <Card onClose={() => setCardOpen(false)} onReport={handlePost} />
+      )}
+
+      <Outlet />
     </>
-  )
+  );
 }

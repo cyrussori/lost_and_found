@@ -30,7 +30,7 @@ export default function Card({ onClose, onReport }) {
 
   return (
     <div className="card">
-      <div className="cardStyle" style={{ width: "400px" }}>
+      <div className="cardStylePopup" style={{ width: "400px" }}>
         <h3>Report Item</h3>
         <form onSubmit={handleSubmit} className="formContainer">
           <label>Title</label>

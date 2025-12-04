@@ -1,6 +1,7 @@
 // routes handeling login and signup
 
 import express from "express";
+import session from "express-session";
 import bcrypt from "bcryptjs";
 import { createUser, findUserByEmail } from "../models/userModel.js";
 
@@ -59,7 +60,13 @@ router.post("/login", (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
     }
 
-    res.json({ message: "Login successful", user: { id: user.id, name: user.name, email: user.email } });
+    req.session.user = {
+      id: user.id,
+      name: user.name,
+      email: user.email
+    };
+
+    res.json({ message: "Login successful", user: req.session.user });
   });
 });
 

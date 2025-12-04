@@ -1,60 +1,49 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import CardPost from "../components/CardPost";
-import Card from "../components/Card";
 import "../css/main.css";
+import logo from "../images/logo.png";
 
 export default function Welcome() {
-  const [feed, setFeed] = useState([]);
-  const [card, setCard] = useState(false);
-
-  function handlePost() {
-    setCard(true);
-  }
-
-  function handleReport(post) {
-    setFeed((prev) => [post, ...prev]);
-    setCard(false);
-  }
-
   return (
-    <>
-      <div className="wrapper">
-        <h1>LOGO</h1>
-        <div className="linkBar">
-          <button className="btnStyle"> Lost </button>
-          <button className="btnStyle"> Found </button>
-          <Link to="/browse">
-            <button>Browse Posts</button>
-          </Link>
-          <Link to="/login">Login</Link>
+    <div className="welcomeScrollContainer">
+      <section className="hero">
+        <div className="wrapper">
+          <img src={logo} alt="Lost and Found Logo" className="siteLogo" /> 
+          <div className="linkBar">
+            <Link to="/login">
+              <button className="btnStyle">Login</button>
+            </Link>
+            <Link to="/browse">
+              <button className="btnStyle">Get Started</button>
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <div className="laf">
-        <div>
-          <h1>Lost and Found</h1>
-          <p>
-            Some random text about the website. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Aenean nunc elit, malesuada ac lorem
-            non, eleifend vulputate sapien.
-          </p>
+        <div className="laf">
+          <div className="lafText">
+            <h1>Join thousands of users finding their lost items every day.</h1>
+            <h1>Lost something? Found something? We help Bruin items find their way home.</h1>
+            <div className="scrollArrow">&#x2193;</div>
+          </div>
         </div>
-        <div>
-          <div className="imagetemp">temp for img</div>
-          <button className="btnStyle" onClick={handlePost}>
-            Post
-          </button>
+      </section>
+
+      <section className="features">
+        <h2>Our Features</h2>
+        <div className="featureCards">
+          <div className="featureCard">
+            <h3>Search Lost Items</h3>
+            <p>Easily find items reported lost by the community.</p>
+          </div>
+          <div className="featureCard">
+            <h3>Claim Found Items</h3>
+            <p>Quickly report and claim items you have found.</p>
+          </div>
+          <div className="featureCard">
+            <h3>Community Support</h3>
+            <p>Connect with other users and help return items.</p>
+          </div>
         </div>
-      </div>
-
-      <div className="feed">
-        {feed.map((item) => (
-          <CardPost key={item.id} post={item} />
-        ))}
-      </div>
-
-      {card && <Card onClose={() => setCard(false)} onReport={handleReport} />}
-    </>
+      </section>
+    </div>
   );
 }

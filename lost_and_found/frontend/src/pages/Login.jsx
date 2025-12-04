@@ -3,7 +3,7 @@ import { useState } from "react";
 import { login } from "../services/api.js";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ setCurrentUser }) {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [err, setErr] = useState(null); // TODO: Catch error thrown from api.js
   const [loading, setLoading] = useState(false);
@@ -16,6 +16,7 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault(); // prevents refresh
+    console.log("handleSubmit triggered");
     setErr(null);
     setLoading(true);
     try {
@@ -23,14 +24,15 @@ export default function Login() {
       //       Store data in local storage
       //       nav to personal profile (dashboard from user story).
       const userData = await login(loginData);
-      console.log(userData);
-      if (!userData?.user || !userData?.user.id) {
-        throw new Error("Invalid res")
+      const user =
+        userData.user ?? (userData.userId ? { id: userData.userId } : null);
+
+      if (!user?.id) {
+        throw new Error("Invalid response");
       }
-      localStorage.setItem("token", userData.token);
-      localStorage.setItem("user", JSON.stringify(userData.user));  
-      localStorage.setItem("userId", String(userData.user.id))    
-      nav(`/profile/${userData.user.id}`);
+
+      setCurrentUser(user);
+      nav(`/profile/${user.id}`);
     } catch (error) {
       console.error("Erroneous data: ", error);
       setErr("Check the account information you entered and try again.");

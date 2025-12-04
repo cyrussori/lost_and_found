@@ -26,10 +26,16 @@ const router = express.Router();
 
 // Create a new post
 router.post("/", upload.single("image"), (req, res) => {
-  const { user_id, post_type, title, description, category, address, contact} = req.body;
+  // if user not logged in, return 401 error
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
+  }
+  // Get actual user id from session
+  const userId = req.session.user.id;
+  const {post_type, title, description, category, address, contact} = req.body;
   const imagePath = req.file ? `uploads/${req.file.filename}` : null;
 
-  createPost(user_id, post_type, title, description, category, address, contact, (err, result) => {
+  createPost(userId, post_type, title, description, category, address, contact, (err, result) => {
     if (err) {
       console.error("Error creating post:", err);
       return res.status(500).json({ message: "Failed to create post" });
@@ -59,16 +65,6 @@ router.get("/", (req, res) => {
   });
 });
 
-// Get one post by post id 
-router.get("/:id", (req, res) => {
-  const { id } = req.params;
-  getPostById(id, (err, results) => {
-    if (err) return res.status(500).json({ message: "Error fetching post" });
-    if (results.length === 0) return res.status(404).json({ message: "Post not found" });
-    res.json(results[0]);
-  });
-});
-
 // Get post by post type (Lost/Found)
 router.get("/type/:type", (req, res) => {
     const {type} = req.params;
@@ -85,6 +81,29 @@ router.get("/user/:userid", (req, res) => {
         if (err) return res.status(500).json({ message: "Error fetching posts by user"});
         res.json(results);
     });
+});
+
+// Get posts for current user.
+router.get("/me", (req, res) => {
+  // if user not logged in, return 401 error
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Not logged in" });
+  }
+  const userId = req.session.user.id;
+  getPostsByUserId(userId, (err, results) => {
+      if (err) return res.status(500).json({ message: "Error fetching posts by user"});
+      res.json(results);
+  });
+});
+
+// Get one post by post id 
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+  getPostById(id, (err, results) => {
+    if (err) return res.status(500).json({ message: "Error fetching post" });
+    if (results.length === 0) return res.status(404).json({ message: "Post not found" });
+    res.json(results[0]);
+  });
 });
 
 // Update a post by post id

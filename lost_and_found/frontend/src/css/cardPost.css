@@ -1,22 +1,298 @@
-.cardPost {
+/* form for post */
+.card {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+}
+.formContainer input,
+.formContainer textarea,
+.formContainer select {
+  margin: 10px;
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-  overflow: hidden;
+  padding: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-family: inherit;
+}
+.btnCancel {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: 17px;
+}
+.btnCancel:hover{
+  background-color: #f0f0f0;
 }
 
 .cardStyle {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 30px;
+  
   display: flex;
   flex-direction: column;
-  gap: 5px;
+}
+
+.cardStylePopup {
+  background-color: white;
+  padding: 30px;
+  border: 2px solid whitesmoke;
+  border-radius: 10%;
 }
 
 .cardPost p,
 .cardPost h4 {
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+
+.postImage {
+  width: 200px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.cardPost {
+  background-color: white;
+  transition: background-color 0.1s;
+}
+
+.cardPost:hover {
+  background-color: #f9f9f9;
+}
+
+.cardPostCol {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: white;
+  border-top: 1px solid var(--dark-blue);
+  border-radius: 0%;
+  transition: background-color 0.1s;
+}
+
+.cardPostCard {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  background-color: white;
+  border: 2px solid whitesmoke;
+  border-radius: 0%;
+  transition: background-color 0.1s;
+  border-radius: 10%;
+}
+
+.cardStyle {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.userName {
+  font-weight: 600;
+  color: #0f1419;
+}
+
+.timeStamp {
+  color: #657786;
+  font-size: 14px;
+}
+
+.moreButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #657786;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.moreButton:hover {
+  background-color: #e8f5fe;
+  color: var(--dark-blue);
+}
+
+.cardContent h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f1419;
+  line-height: 1.3;
+}
+
+.cardContent p {
+  margin: 0;
+  color: #0f1419;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.address {
+  display: flex;
+  align-items: flex-end;
+  color: #657786 !important;
+  font-size: 14px;
+  margin-top: 8px !important;
+}
+
+.mediaContainer {
+  margin-top: 8px;
+  border-radius: 16px;
+  overflow: hidden;
+  max-height: 400px;
+}
+
+.postImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.actionBar {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #f0f2f5;
+}
+
+.actionButton {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #657786;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.actionButton:hover {
+  color: var(--dark-blue);
+  background-color: #e8f5fe;
+}
+
+.category, .resolved {
+  font-size: 12px;
+  display: inline-block;
+  width: fit-content;
+  color:#f9f9f9;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 20px;
+}
+
+.category {
+  background-color: var(--dark-blue);
+}
+
+.resolved {
+  background-color: #6edb83;
+}
+
+.profileLink {
+  color: black;
+  text-decoration: none;
+}
+
+.profileLink:hover {
+  text-decoration: underline;
+}
+
+.returnedButton {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #657786;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.actionButton.returnedButton:hover {
+  color: white;
+  background-color: #6edb83;
+}
+
+.optionsWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.options {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.optionButton {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.cancelButton {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #5a6268;
 }

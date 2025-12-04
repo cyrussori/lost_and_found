@@ -6,6 +6,7 @@ export async function login({ email, password }) {
         const response = await fetch(`${API_BASE}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ email, password })
         });
         // check if http error status code
@@ -26,6 +27,7 @@ export async function signup({ name, email, password }) {
         const response = await fetch(`${API_BASE}/auth/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ name, email, password })
         });
         // check if http error status code 
@@ -52,11 +54,22 @@ export async function getPosts() {
   }
 }
 
-export async function createPost(postData) {
+export async function getPostById(id) {
     try {
-        const response = await fetch(`${API_BASE}/posts`, {
-            method: 'POST',
-            body: postData,
+        const response = await fetch(`${API_BASE}/posts/${id}`);
+        if (!response.ok) throw new Error(`HTTP error; status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching posts', error);
+        return null;
+    }
+}
+
+export async function getMyPosts() {
+    try {
+        const response = await fetch(`${API_BASE}/posts/me`, {
+            method: "GET",
+            credentials: "include",
         });
         if (!response.ok) throw new Error(`HTTP error; status: ${response.status}`);
         return await response.json();
@@ -64,4 +77,59 @@ export async function createPost(postData) {
         console.error('Error fetching posts', error);
         return null;
     }
+}
+
+export async function createPost(postData) {
+    try {
+        const response = await fetch(`${API_BASE}/posts`, {
+            method: 'POST',
+            body: postData,
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error; status: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching posts', error);
+        return null;
+    }
+}
+
+export async function markResolved(post) {
+        const response = await fetch(`${API_BASE}/posts/${post}/resolve`, {
+            method: 'PUT',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error; status: ${response.status}`);
+        return await response.json();
+}
+
+export async function fetchMe() {
+  try {
+    const res = await fetch(`${API_BASE}/users/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return data.user;
+  } catch (err) {
+    console.error("Error fetching /me:", err);
+    return null;
+  }
+}
+
+export async function deletePost(postId) {
+  try {
+    const response = await fetch(`${API_BASE}/posts/${postId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (!response.ok) throw new Error("Deletion unsuccessful");
+    return response.json();
+  } catch (err) {
+    console.error("Error deleting post:", err);
+    return null;
+  }
 }

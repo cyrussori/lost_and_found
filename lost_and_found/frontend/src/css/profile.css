@@ -11,8 +11,9 @@
 .profileWrapper {
   display: flex;
   align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .profileCard {
@@ -22,7 +23,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   width: 640px;
-  height: calc(100vh);
+  min-height: 100vh;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -33,12 +34,13 @@
 }
 
 .tempForImage {
-    background-color: gray;
-    width: 100px;
-    height: 100px;
     margin-right: 20px;
     border-radius: 50px;
     margin-top: 40px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .rightContactInfo {
@@ -75,26 +77,25 @@
 .colWrapper {
     margin-top: 10px;
     border-top: 1px solid var(--dark-blue);
-    border-bottom: 1px solid var(--dark-blue);
     padding: 0 16px;
     width: 550px;
 }
 
 .colBtns {
     display: flex;
-    gap: 24px;
+    gap: 154px;
     height: 48px;
     align-items: flex-end;
     font-size: 16px;
     font-weight: 500;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .colBtns > button {
     background: none;
     border: none;
     padding: 0;
-    color: black;
+    color: #999999;
     height: 100%;
     cursor: pointer;
     font: inherit;
@@ -102,3 +103,18 @@
     align-items: center;
 }
 
+.tab {
+  all: unset;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab:hover {
+  border-bottom: 1px solid var(--dark-blue);
+}
+
+.tab.active {
+  color: black;
+  border-bottom: 1px solid var(--dark-blue);
+}

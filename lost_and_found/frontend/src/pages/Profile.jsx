@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { API_BASE } from "../services/api";
+import { API_BASE, markResolved } from "../services/api";
+import CardPost from "../components/CardPost";
 import axios from "axios";
 
 // TODO:
@@ -51,10 +52,11 @@ export default function Profile() {
   );
 }*/
 
-export default function Profile() {
+export default function Profile({ posts, setPosts }) {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const { id } = useParams();
+  const [currTab, setCurrTab] = useState("posts");
+  //const { id } = useParams();
 /*
   useEffect(() => {
     async function fetchUser() {
@@ -72,13 +74,32 @@ export default function Profile() {
     fetchUser();
   }, [username])
 */
-  useEffect(() => {
-      const stored = localStorage.getItem('user');
-      if (stored) {
-      setUser(JSON.parse(stored));
+ useEffect(() => {
+  async function fetchUser() {
+      try {
+        const res = await fetch("http://localhost:5050/api/users/me", {
+          credentials: "include",       // required for session cookies
+        });
+
+        if (!res.ok) {
+          setUser(null);
+        } else {
+          console.log("Fetching user for profile page");
+          const data = await res.json();
+          setUser(data);           // backend should send { user: {...} }
+        }
+      } catch (err) {
+        console.error("Error fetching user:", err);
+      } finally {
+        setLoading(false);
+      }
     }
-    setLoading(false);
-  }, [id]);
+
+    fetchUser();
+  }, []); 
+
+  const profilePosts = user ? posts.filter(p => p.user_id === user.id) : [];
+
 /*
   useEffect(() => {
     const fakeUser = { name: "Josie Bruin", email: "josieBruin@ucla.edu" };
@@ -88,6 +109,14 @@ export default function Profile() {
     }, 500);
   }, []);
 */
+
+  const handleResolved = async (postId) => {
+    await markResolved(postId);
+    setPosts(prev => 
+      prev.map(p => p.id === postId ? { ...p, status: "Resolved" } : p)
+    );
+  };
+
   return (
     <>
       <div className="headerWrapper">
@@ -105,15 +134,29 @@ export default function Profile() {
               <div className="tempForImage"></div>
             </div>
             <div className="lowerCard">
-              <button className="editProfileBtn">Edit profile</button>
+              <Link to="/edit-profile">
+                <button className="editProfileBtn">Edit profile</button>
+              </Link>
               <div className="colWrapper">
                 <div className="colBtns">
-                  <button>Posts</button>
-                  <button>Replies</button>
-                  <button>IDK</button>
+                  <button className={currTab === "posts" ? "tab active" : "tab" }
+                  onClick={() => setCurrTab("posts")}>Posts</button>
                 </div>
               </div>
             </div>
+            <div className="postsWrapper">
+            {currTab === "posts" && (
+              <>
+              {profilePosts.length === 0 ? (
+                <p>Report a Lost/Found item</p>
+              ) : (
+                profilePosts.map((post) => (
+                  <CardPost key={post._id} post={post} viewMode="column" isAccountOwner={true} onResolved={handleResolved}/>
+                ))
+              )}
+              </>
+            )}
+          </div>
           </div>
         </div>
       )}
