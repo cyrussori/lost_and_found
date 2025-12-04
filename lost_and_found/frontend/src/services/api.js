@@ -105,7 +105,7 @@ export async function markResolved(post) {
 
 export async function fetchMe() {
   try {
-    const res = await fetch(`${API_BASE}/me`, {
+    const res = await fetch(`${API_BASE}/users/me`, {
       method: "GET",
       credentials: "include",
     });

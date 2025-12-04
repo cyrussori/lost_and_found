@@ -24,7 +24,7 @@ export default function AppRoutes() {
       .then((data) => setPosts(data))
       .catch(() => setPosts(demoPosts));
   }, []);
-  
+
   useEffect(() => {
     async function loadUser() {
       try {
@@ -75,7 +75,7 @@ export default function AppRoutes() {
       />
       <Route 
         path="/edit-profile" 
-        element={<EditProfile currentUser={currentUser} />} 
+        element={<EditProfile currentUser={currentUser} setCurrentUser={setCurrentUser}/>} 
       />
 
       <Route

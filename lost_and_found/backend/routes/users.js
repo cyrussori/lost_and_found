@@ -1,6 +1,6 @@
 // routes/users.js
 import express from "express";
-import { updateUserById } from "../models/userModel.js";
+import { findUserById, updateUserById } from "../models/userModel.js";
 
 const router = express.Router();
 

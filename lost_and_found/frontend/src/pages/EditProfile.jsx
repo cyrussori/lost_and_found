@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function EditProfile() {
+export default function EditProfile({currentUser, setCurrentUser}) {
   const [user, setUser] = useState(null);
-  const [form, setForm] = useState({ name: "", email: "" });
+  const [form, setForm] = useState({ 
+    name: currentUser?.name || "", 
+    email: currentUser?.email || "" 
+  });
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -14,10 +17,11 @@ export default function EditProfile() {
   // -------------------------
   // Fetch current user
   // -------------------------
+  
   useEffect(() => {
   async function loadUser() {
     try {
-      const res = await fetch("http://localhost:5050/api/me", {
+      const res = await fetch("http://localhost:5050/api/users/me", {
         credentials: "include",
       });
 
@@ -25,10 +29,10 @@ export default function EditProfile() {
 
       const data = await res.json();
 
-      setUser(data.user);  // FIX
-      setForm({            // FIX
-        name: data.user.name,
-        email: data.user.email
+      setUser(data); 
+      setForm({            
+        name: data.name,
+        email: data.email
       });
     } catch (e) {
       setErr("Could not load profile.");
@@ -39,6 +43,7 @@ export default function EditProfile() {
 
   loadUser();
 }, []);
+
 
   // -------------------------
   // Form field update
@@ -57,9 +62,16 @@ export default function EditProfile() {
     setSaving(true);
 
     try {
-      const res = await fetch("http://localhost:5050/api/me", {
+      const res = await fetch("http://localhost:5050/api/users/me", {
         method: "PUT",
-         credentials: "include",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email
+        })
 });
 
       if (!res.ok) {
@@ -69,7 +81,8 @@ export default function EditProfile() {
       const updated = await res.json();
 
       // Optional: update local user state
-      setUser((prev) => ({ ...prev, ...form }));
+      //setUser((prev) => ({ ...prev, ...form }));
+      setCurrentUser(updated);
 
       // Navigate to profile page  
       nav(`/profile/${user.id}`);
