@@ -18,28 +18,6 @@ export default function AppRoutes() {
   const [posts, setPosts] = useState([]);
   const [cardOpen, setCardOpen] = useState(false);
 
-  const demoPosts = [
-    {
-      id: 1,
-      _id: 1,
-      user_id: 123,
-      user_name: "Alice",
-      title: "Lost Wallet",
-      description: "Black wallet",
-      category: "Wallet",
-      post_type: "Lost",
-      address: "123 Main St",
-      status: "Lost",
-      file_path: null,
-    },
-  ];
-
-  useEffect(() => {
-    getPosts()
-      .then((data) => setPosts(data))
-      .catch(() => setPosts(demoPosts));
-  }, []);
-
   useEffect(() => {
     async function loadUser() {
       try {
@@ -136,23 +114,6 @@ export default function AppRoutes() {
           element={<UserPost currentUser={currentUser} />}
         />
       </Route>
-
-      {/* demo */}
-      <Route
-        path="/demo-browse"
-        element={
-          <div style={{ padding: 20 }}>
-            <h2>Browse Demo</h2>
-            <Browse
-              posts={demoPosts}
-              setPosts={(newPosts) => console.log("Updated posts:", newPosts)}
-              onResolved={(postId) => {
-                console.log("Resolved post:", postId);
-              }}
-            />
-          </div>
-        }
-      />
     </Routes>
   );
 }

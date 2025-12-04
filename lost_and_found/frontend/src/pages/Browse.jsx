@@ -5,39 +5,10 @@ import { markResolved } from "../services/api";
 export default function Browse({ posts, setPosts, currentUser }) {
   const [filterType, setFilterType] = useState("all");
 
-  const demoPosts = [
-    {
-      id: 1,
-      user_id: 123,
-      user_name: "Alice",
-      title: "Lost Wallet",
-      description: "Black wallet",
-      category: "Wallet",
-      post_type: "Lost",
-      address: "123 Main St",
-      status: "Lost",
-      file_path: null,
-    },
-    {
-      id: 2,
-      user_id: 456,
-      user_name: "Bob",
-      title: "Found Keys",
-      description: "Set of car keys",
-      category: "Keys",
-      post_type: "Found",
-      address: "456 Elm St",
-      status: "Found",
-      file_path: null,
-    },
-  ];
-
-  const allPosts = posts && posts.length > 0 ? posts : demoPosts;
-
   const filteredFeed =
     filterType === "all"
-      ? allPosts
-      : allPosts.filter((post) => post.post_type === filterType);
+      ? posts
+      : posts.filter((post) => post.post_type === filterType);
 
   const handleResolved = async (postId) => {
     try {
