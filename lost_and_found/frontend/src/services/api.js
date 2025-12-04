@@ -113,7 +113,7 @@ export async function fetchMe() {
     if (!res.ok) return null;
 
     const data = await res.json();
-    return data.user;
+    return data;
   } catch (err) {
     console.error("Error fetching /me:", err);
     return null;
