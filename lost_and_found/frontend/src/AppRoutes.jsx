@@ -20,6 +20,12 @@ export default function AppRoutes() {
   const [cardOpen, setCardOpen] = useState(false);
 
   useEffect(() => {
+    getPosts()
+      .then((data) => setPosts(data))
+      .catch(() => setPosts(demoPosts));
+  }, []);
+  
+  useEffect(() => {
     async function loadUser() {
       try {
         const user = await fetchMe();
