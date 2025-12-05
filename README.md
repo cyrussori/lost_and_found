@@ -33,3 +33,22 @@ cd backend and run: `mysql -u root -p < ./db/schema.sql`.
 2. **Report items**: For a user who has lost or found an item, click on the plus icon in the navigation bar to the left of the page. 
 
 3. **Mark posts as resolved**: If you've resolved a report with another person, navigate to your profile page and mark the post as resolved.
+
+# Tests
+1. **Cucumber tests**
+Navigate into the cucumber_tests directory:
+    cd frontend/cucumber_tests
+Install the required dependencies:
+    npm install
+Before running Cucumber tests, make sure your frontend dev server is running:
+    In a separate terminal:
+        cd frontend
+        npm run dev
+Then run:
+    npx cucumber-js
+
+2. **Test**
+Navigate into the tests directory:
+    cd fronten/test
+Then run:
+    npm test
