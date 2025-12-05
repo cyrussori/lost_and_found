@@ -41,7 +41,7 @@ export default function AppRoutes() {
 
   const handlePostClick = () => {
     if (!currentUser) {
-      setCardOpen(true);
+      navigate("/login");
       return;
     }
     setCardOpen(true);
