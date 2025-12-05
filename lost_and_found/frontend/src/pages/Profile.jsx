@@ -77,7 +77,7 @@ export default function Profile({ posts, setPosts }) {
  useEffect(() => {
   async function fetchUser() {
       try {
-        const res = await fetch("http://localhost:5050/api/users/me", {
+        const res = await fetch("http://localhost:5050/api/me", {
           credentials: "include",       // required for session cookies
         });
 
@@ -86,7 +86,7 @@ export default function Profile({ posts, setPosts }) {
         } else {
           console.log("Fetching user for profile page");
           const data = await res.json();
-          setUser(data);           // backend should send { user: {...} }
+          setUser(data.user);           // backend should send { user: {...} }
         }
       } catch (err) {
         console.error("Error fetching user:", err);

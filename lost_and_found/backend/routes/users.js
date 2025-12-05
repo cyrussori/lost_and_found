@@ -1,41 +1,33 @@
 // routes/users.js
 import express from "express";
-import { findUserById, updateUserById } from "../models/userModel.js";
-
 const router = express.Router();
 
-router.put("/me", (req, res) => {
-  if (!req.session.user) return res.status(401).json({ message: "Not logged in" });
-
-  const userId = req.session.user.id;
-  const { name, email } = req.body;
-
-  updateUserById(userId, { name, email }, (err, results) => {
-    if (err) return res.status(500).json({ message: "Database error" });
-    return res.json({ message: "Profile updated", user: { id: userId, name, email } });
-  });
-});
-
-router.get("/me", (req, res) => {
+// POST /api/users/me/update
+router.post("/me/update", (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ message: "Not logged in" });
   }
 
   const userId = req.session.user.id;
+  const { name, email } = req.body;
 
-  findUserById(userId, (err, results) => {
-    if (err) return res.status(500).json({ message: "Database error" });
-    if (results.length === 0) return res.status(404).json({ message: "User not found" });
+  // updateUserById is your DB function to update the user
+  updateUserById(userId, { name, email }, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Database error" });
+    }
 
-    const user = results[0];
+    // Update the session info too
+    req.session.user.name = name;
+    req.session.user.email = email;
+
     res.json({
-      id: user.id,
-      name: user.name,
-      email: user.email,
+      message: "Profile updated",
+      user: { id: userId, name, email },
     });
   });
-  
 });
+
+
 export default router;
-
-
