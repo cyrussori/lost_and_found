@@ -1,8 +1,12 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2020",
-    "esModuleInterop": true,
-    "strict": true
+  "name": "cucumber-tests",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "cucumber-js"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^11.0.0",
+    "playwright": "^1.40.0"
   }
 }
