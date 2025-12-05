@@ -40,8 +40,7 @@ export default function Signup() {
     try {
       const userData = await signup(signupData);
       console.log(userData);
-      // Use localStorage for now; Stores signup data.
-      // After, everything works => use cookies.
+      /*
       if (!userData) {
         //assume email already taken
         setErr("Email already in use. Try logging in.");
@@ -49,19 +48,15 @@ export default function Signup() {
       const validUserData = () => {
         return userData.token && (userData.user?.id || userData.userId);
       };
-      /*
-      if (validUserData) {
-        localStorage.setItem('token', userData.token);
-        localStorage.setItem('user', userData.user?.id);
-        localStorage.setItem('user', userData.userId);
-      } else {
-        throw new Error('Invalid response from server');
-      }
-        */
+      */
       nav("/login");
     } catch (error) {
       console.error("Erroneous data: ", error);
-      setErr("Signup failed. Please try again.");
+      if (error.message && error.message.includes("Email already registered")) {
+        setErr("Email already in use. Try logging in."); // <--- Your desired message
+      } else {
+        setErr("Signup failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }

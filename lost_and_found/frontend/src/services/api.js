@@ -22,7 +22,7 @@ export async function login({ email, password }) {
 }
 
 export async function signup({ name, email, password }) {
-    try {
+    
         // define response
         const response = await fetch(`${API_BASE}/auth/signup`, {
             method: 'POST',
@@ -32,14 +32,13 @@ export async function signup({ name, email, password }) {
         });
         // check if http error status code 
         if (!response.ok) {
-            throw new Error(`HTTP error; status: ${response.status}`);
+            const errorData = await response.json();
+            throw new Error(errorData.message || `HTTP error; status: ${response.status}`);
         }
         // parse response body as json
         const signupData = await response.json();
         return signupData;
-    } catch(error) {
-        console.error('Error during fetch', error);
-    }
+    
 }
 
 export async function getPosts() {
