@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 
 export const createPost = (user_id, post_type, title, description, category, address, contact, callback) => {
   const sql = `
-    INSERT INTO Posts (user_id, post_type, title, description, category, address, contact)
+    INSERT INTO posts (user_id, post_type, title, description, category, address, contact)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
   db.query(sql, [user_id, post_type, title, description, category, address, contact], callback);
@@ -23,7 +23,7 @@ export const createImage = (post_id, file_path, file_name, callback) => {
 
 export const getAllPosts = (callback) => {
   const sql = `SELECT p.*, i.file_path, u.name AS user_name
-    FROM Posts p
+    FROM posts p
     LEFT JOIN images i ON p.id = i.post_id
     LEFT JOIN users u ON p.user_id = u.id
     ORDER BY p.created_at DESC`;
@@ -32,7 +32,7 @@ export const getAllPosts = (callback) => {
 
 export const getPostById = (id, callback) => {
   const sql = `SELECT p.*, i.file_path, u.name AS user_name
-    FROM Posts p
+    FROM posts p
     LEFT JOIN images i ON p.id = i.post_id 
     LEFT JOIN users u ON p.user_id = u.id
     WHERE p.id = ?  
@@ -42,7 +42,7 @@ export const getPostById = (id, callback) => {
 
 export const getPostsByType = (post_type, callback) => {
   const sql = `SELECT p.*, i.file_path
-    FROM Posts p
+    FROM posts p
     LEFT JOIN images i ON p.id = i.post_id 
     WHERE p.post_type = ? 
     ORDER BY p.created_at DESC`;
@@ -51,7 +51,7 @@ export const getPostsByType = (post_type, callback) => {
 
 export const getPostsByUserId = (user_id, callback) => {
   const sql = `SELECT p.*, i.file_path, u.name AS user_name
-    FROM Posts p
+    FROM posts p
     LEFT JOIN images i ON p.id = i.post_id 
     LEFT JOIN users u ON p.user_id = u.id
     WHERE p.user_id = ? 
@@ -61,7 +61,7 @@ export const getPostsByUserId = (user_id, callback) => {
 
 export const updatePost = (id, title, description, category, address, contact, callback) => {
   const sql = `
-    UPDATE Posts 
+    UPDATE posts 
     SET title=?, description=?, category=?, address=?, contact=?
     WHERE id=?
   `;
@@ -70,7 +70,7 @@ export const updatePost = (id, title, description, category, address, contact, c
 
 export const markPostResolved = (id, callback) => {
   const sql = `
-    UPDATE Posts
+    UPDATE posts
     SET status = 'Resolved'
     WHERE id = ?
   `;
@@ -83,7 +83,7 @@ const __dirname = path.dirname(__filename);
 
 export function deletePost(id, callback) {
   // 1. Check if post exists
-  db.query("SELECT * FROM Posts WHERE id = ?", [id], async (err, postRows) => {
+  db.query("SELECT * FROM posts WHERE id = ?", [id], async (err, postRows) => {
     if (err) return callback(err);
 
     if (postRows.length === 0) {
@@ -101,7 +101,7 @@ export function deletePost(id, callback) {
         if (err) return callback(err);
 
         // 4. Delete post database row
-        db.query("DELETE FROM Posts WHERE id = ?", [id], async (err) => {
+        db.query("DELETE FROM posts WHERE id = ?", [id], async (err) => {
           if (err) return callback(err);
 
           // 5. Delete actual image file if it exists
