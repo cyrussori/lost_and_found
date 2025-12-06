@@ -52,3 +52,10 @@ Navigate into the tests directory:
     cd fronten/test
 Then run:
     npm test
+
+
+## Diagrams
+
+1.Entity Relationship Diagram
+
+![ER-diagram](ERDiagram.png)

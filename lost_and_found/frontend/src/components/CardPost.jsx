@@ -27,10 +27,13 @@ export default function CardPost({
 
   const handleClick = () => {
     if (!clickable) return;
+    /*
     if (!currentUser) {
       nav("/login");
+      console.log("User not logged in");
       return;
     }
+      */
     nav(`/posts/${post.id}`);
   };
 
